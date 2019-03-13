@@ -6,9 +6,9 @@ package com.udacity.capstoneinvest.object;
 public class FinancialAsset {
 
     private String name;
-    private Double value;
-    private int amount;
-    private InvestCategory investCategory;
+    private double value;
+    // Reference must be InvestCategory class
+    private int investCategory;
 
     public String getName() {
         return name;
@@ -18,27 +18,19 @@ public class FinancialAsset {
         this.name = name;
     }
 
-    public Double getValue() {
+    public double getValue() {
         return value;
     }
 
-    public void setValue(Double value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public InvestCategory getInvestCategory() {
+    public int getInvestCategory() {
         return investCategory;
     }
 
-    public void setInvestCategory(InvestCategory investCategory) {
+    public void setInvestCategory(int investCategory) {
         this.investCategory = investCategory;
     }
 }
