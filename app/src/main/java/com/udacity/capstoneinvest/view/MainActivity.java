@@ -15,11 +15,14 @@ import android.view.View;
 
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.ActivityMainBinding;
+import com.udacity.capstoneinvest.presenter.DatabasePortfolioPresenterImpl;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        InvestmentPortfolioUI {
 
     private ActivityMainBinding mActivityMainBinding;
+    private DatabasePortfolioPresenterImpl mDatabasePortfolioPresenterImpl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity
         mActivityMainBinding.appBarMain.contentMain.setShowTotal(true);
         mActivityMainBinding.appBarMain.contentMain.ivViewValues.setOnClickListener(getTotalInvestClickListener());
 
+        init();
     }
 
     @Override
@@ -110,5 +114,14 @@ public class MainActivity extends AppCompatActivity
                 // TODO update preference value
             }
         };
+    }
+
+    private void init() {
+        mDatabasePortfolioPresenterImpl = new DatabasePortfolioPresenterImpl(this);
+    }
+
+    @Override
+    public void setTotalInvestedUI(double value) {
+        mActivityMainBinding.appBarMain.contentMain.setTotal(value);
     }
 }

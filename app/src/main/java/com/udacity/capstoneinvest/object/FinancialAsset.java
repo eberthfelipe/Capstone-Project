@@ -8,7 +8,7 @@ public class FinancialAsset {
     private String name;
     private double value;
     // Reference must be InvestCategory class
-    private int investCategory;
+    private String investCategory;
 
     public String getName() {
         return name;
@@ -26,11 +26,11 @@ public class FinancialAsset {
         this.value = value;
     }
 
-    public int getInvestCategory() {
+    public String getInvestCategory() {
         return investCategory;
     }
 
-    public void setInvestCategory(int investCategory) {
+    public void setInvestCategory(String investCategory) {
         this.investCategory = investCategory;
     }
 }

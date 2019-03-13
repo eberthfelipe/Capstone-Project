@@ -16,5 +16,5 @@
     <string name="cd_icon_view_total_invested">Total invested visible</string>
     <string name="cd_icon_do_not_view_total_invested">Total invested invisible</string>
     <string name="total_invested">Total Invested:</string>
-    <string name="real">R$</string>
+    <string name="real">R$ %s</string>
 </resources>

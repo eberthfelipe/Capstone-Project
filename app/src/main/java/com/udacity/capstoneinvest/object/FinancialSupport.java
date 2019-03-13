@@ -5,7 +5,7 @@ package com.udacity.capstoneinvest.object;
  */
 public class FinancialSupport {
 
-    private int id;
+    private String id;
     private AssetSupport[] assetSupports;
     private double valueSupport;
     //Active cycle will receive true, past cycle will receive false
@@ -15,11 +15,11 @@ public class FinancialSupport {
         //TODO 1: get ID from database and create assetSupports array based on last cycle
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
