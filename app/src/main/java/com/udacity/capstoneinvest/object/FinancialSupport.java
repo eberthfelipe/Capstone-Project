@@ -7,6 +7,7 @@ public class FinancialSupport {
 
     private int id;
     private AssetSupport[] assetSupports;
+    private double valueSupport;
     //Active cycle will receive true, past cycle will receive false
     private boolean state;
 
@@ -30,11 +31,19 @@ public class FinancialSupport {
         this.assetSupports = assetSupports;
     }
 
-    public boolean getState() {
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
+    public boolean isState() {
         return state;
     }
 
-    public void setState(boolean state) {
-        this.state = state;
+    public double getValueSupport() {
+        return valueSupport;
+    }
+
+    public void setValueSupport(double valueSupport) {
+        this.valueSupport = valueSupport;
     }
 }
