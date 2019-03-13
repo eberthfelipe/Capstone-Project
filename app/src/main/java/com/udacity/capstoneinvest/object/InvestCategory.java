@@ -9,9 +9,9 @@ public class InvestCategory {
     private String type;
     private double weight;
 
-    public InvestCategory(String type, double weight) {
+    public InvestCategory(String type) {
         this.type = type;
-        this.weight = weight;
+        this.weight = 0;
     }
 
     public int getId() {

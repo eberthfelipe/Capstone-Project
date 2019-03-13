@@ -8,4 +8,9 @@
     <string name="action_settings">Settings</string>
     <string name="settings">Settings</string>
     <string name="investment_category">Investment Category</string>
+    <string name="name">Name:</string>
+    <string name="dialog_create">Create</string>
+    <string name="dialog_investment_category">New Investment Category</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_category_name">Category name</string>
 </resources>
