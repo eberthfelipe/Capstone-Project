@@ -13,4 +13,8 @@
     <string name="dialog_investment_category">New Investment Category</string>
     <string name="cancel">Cancel</string>
     <string name="add_category_name">Category name</string>
+    <string name="cd_icon_view_total_invested">Total invested visible</string>
+    <string name="cd_icon_do_not_view_total_invested">Total invested invisible</string>
+    <string name="total_invested">Total Invested:</string>
+    <string name="real">R$</string>
 </resources>

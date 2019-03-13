@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 CategoryDialogFragment categoryDialogFragment = new CategoryDialogFragment();
-                categoryDialogFragment.show(getSupportFragmentManager(), "teste");
+                categoryDialogFragment.show(getSupportFragmentManager(), categoryDialogFragment.getTag());
             }
         });
 
@@ -44,6 +44,11 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         mActivityMainBinding.navView.setNavigationItemSelectedListener(this);
+
+        //TODO Create user preference for visibility
+        mActivityMainBinding.appBarMain.contentMain.setShowTotal(true);
+        mActivityMainBinding.appBarMain.contentMain.ivViewValues.setOnClickListener(getTotalInvestClickListener());
+
     }
 
     @Override
@@ -94,5 +99,16 @@ public class MainActivity extends AppCompatActivity
 
         mActivityMainBinding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public View.OnClickListener getTotalInvestClickListener(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean show = mActivityMainBinding.appBarMain.contentMain.getShowTotal();
+                mActivityMainBinding.appBarMain.contentMain.setShowTotal(!show);
+                // TODO update preference value
+            }
+        };
     }
 }
