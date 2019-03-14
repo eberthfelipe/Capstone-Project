@@ -5,6 +5,9 @@ package com.udacity.capstoneinvest.object;
  */
 public class InvestCategory {
 
+    public static String DATABASE_ID_FIELD = "id";
+    public static String DATABASE_TYPE_FIELD = "type";
+    public static String DATABASE_WEIGHT_FIELD = "weight";
     private String id;
     private String type;
     private double weight;
@@ -39,3 +42,4 @@ public class InvestCategory {
     }
 
 }
+

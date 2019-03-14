@@ -16,14 +16,19 @@ import android.view.View;
 import com.google.firebase.database.FirebaseDatabase;
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.ActivityMainBinding;
+import com.udacity.capstoneinvest.object.InvestCategory;
+import com.udacity.capstoneinvest.presenter.DatabaseCategoryPresenterImpl;
 import com.udacity.capstoneinvest.presenter.DatabasePortfolioPresenterImpl;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        InvestmentPortfolioUI {
+        InvestmentPortfolioUI, InvestCategoryUI {
 
     private ActivityMainBinding mActivityMainBinding;
     private DatabasePortfolioPresenterImpl mDatabasePortfolioPresenterImpl;
+    private DatabaseCategoryPresenterImpl mDatabaseCategoryPresenterImpl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +56,6 @@ public class MainActivity extends AppCompatActivity
                 this, mActivityMainBinding.drawerLayout, mActivityMainBinding.appBarMain.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mActivityMainBinding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-        mActivityMainBinding.navView.setNavigationItemSelectedListener(this);
 
         //TODO Create user preference for visibility
         mActivityMainBinding.appBarMain.contentMain.setShowTotal(true);
@@ -99,7 +102,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_account_balance) {
             // Handle the camera action
         } else if (id == R.id.nav_share) {
 
@@ -123,11 +126,25 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void init() {
+        mActivityMainBinding.navView.setNavigationItemSelectedListener(this);
+        mActivityMainBinding.navView.setCheckedItem(R.id.nav_account_balance);
         mDatabasePortfolioPresenterImpl = new DatabasePortfolioPresenterImpl(this);
+        mDatabaseCategoryPresenterImpl = new DatabaseCategoryPresenterImpl(this);
     }
 
+    //region DatabasePortfolioPresenterImpl to access InvestmentPortfolio object
     @Override
     public void setTotalInvestedUI(double value) {
         mActivityMainBinding.appBarMain.contentMain.setTotal(value);
     }
+    //endregion
+
+    //region DatabaseCategoryPresenterImpl to access InvestCategory object
+    @Override
+    public void setInvestCategoryUI(ArrayList<InvestCategory> databaseCategories) {
+        if(databaseCategories == null){
+            mActivityMainBinding.appBarMain.contentMain.categoryViewContent.setHasCategory(false);
+        }
+    }
+    //endregion
 }

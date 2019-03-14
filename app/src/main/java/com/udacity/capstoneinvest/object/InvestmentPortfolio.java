@@ -5,6 +5,7 @@ package com.udacity.capstoneinvest.object;
  */
 public class InvestmentPortfolio {
 
+    public static String DATABASE_VALUE_TOTAL_FIELD = "valueTotal";
     private double valueTotal;
 
     public double getValueTotal() {

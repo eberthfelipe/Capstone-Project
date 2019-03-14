@@ -18,4 +18,5 @@
     <string name="cd_icon_investments_category">Icon account balance</string>
     <string name="total_invested">Total Invested:</string>
     <string name="real">R$ %s</string>
+    <string name="categories_when_have_none">Please, create categories for your investments!</string>
 </resources>
