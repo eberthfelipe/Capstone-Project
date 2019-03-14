@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.ActivityMainBinding;
 import com.udacity.capstoneinvest.presenter.DatabasePortfolioPresenterImpl;
@@ -27,6 +28,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //enable local instance of firebase database
+        //TODO save preference for persistence
+//        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         mActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(mActivityMainBinding.appBarMain.toolbar);
 
