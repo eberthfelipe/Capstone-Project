@@ -9,11 +9,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.firebase.database.FirebaseDatabase;
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.ActivityMainBinding;
 import com.udacity.capstoneinvest.object.InvestCategory;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
 
         //TODO Create user preference for visibility
         mActivityMainBinding.appBarMain.contentMain.setShowTotal(true);
-        mActivityMainBinding.appBarMain.contentMain.ivViewValues.setOnClickListener(getTotalInvestClickListener());
+        mActivityMainBinding.appBarMain.contentMain.ivViewValues.setOnClickListener(viewTotalInvestedClickListener());
 
         init();
     }
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public View.OnClickListener getTotalInvestClickListener(){
+    public View.OnClickListener viewTotalInvestedClickListener(){
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +131,12 @@ public class MainActivity extends AppCompatActivity
         mDatabasePortfolioPresenterImpl = new DatabasePortfolioPresenterImpl(this);
         mDatabaseCategoryPresenterImpl = new DatabaseCategoryPresenterImpl(this);
     }
+
+    public void callBackDialog(String categoryType){
+        Log.d("TESTE", "callback: " + categoryType);
+        // TODO save new category
+    }
+
 
     //region DatabasePortfolioPresenterImpl to access InvestmentPortfolio object
     @Override

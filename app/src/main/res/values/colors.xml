@@ -10,4 +10,5 @@
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorIconsDark">#A3A3A3</color>
     <color name="colorDivider">#BDBDBD</color>
+    <color name="colorTransparent">#00BDBDBD</color>
 </resources>

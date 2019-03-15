@@ -1,27 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    >
 
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/name"
-        android:textSize="@dimen/dialog_title"
-        android:textAppearance="@android:style/TextAppearance.Material.DialogWindowTitle"
-        android:layout_marginTop="@dimen/margin_default_dialog"
-        android:layout_marginStart="@dimen/margin_default_dialog"
-        />
+        android:layout_height="match_parent"
+        android:minWidth="300dp"
+        >
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@android:style/Theme.Dialog"
-        android:textSize="@dimen/dialog_text"
-        android:hint="@string/add_category_name"
-        android:inputType="text"
-        android:importantForAutofill="no"
-        tools:targetApi="o" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_category"
+            android:textSize="@dimen/dialog_title"
+            android:layout_marginTop="@dimen/margin_default_dialog"
+            android:layout_marginStart="@dimen/margin_default_dialog"
+            style="@style/Theme.AppCompat.DayNight.Dialog"
+            />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/et_dialog_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@android:style/Theme.Dialog"
+            android:textSize="@dimen/dialog_text"
+            android:hint="@string/add_category_name"
+            android:inputType="text"
+            android:importantForAutofill="no"
+            tools:targetApi="o" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom|end"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginBottom="@dimen/margin_default"
+            >
+
+            <Button
+                android:id="@+id/bt_dialog_cancel_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_effect"
+                android:background="@color/colorTransparent"
+                android:textSize="@dimen/dialog_text"
+                style="@style/Theme.AppCompat.DayNight.Dialog"
+                />
+            <Button
+                android:id="@+id/bt_dialog_create_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_create"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_effect"
+                android:background="@color/colorTransparent"
+                android:textSize="@dimen/dialog_text"
+                style="@style/Theme.AppCompat.DayNight.Dialog"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
