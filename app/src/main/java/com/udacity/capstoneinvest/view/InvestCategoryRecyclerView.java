@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.udacity.capstoneinvest.BR;
 import com.udacity.capstoneinvest.R;
@@ -42,15 +44,40 @@ public class InvestCategoryRecyclerView extends RecyclerView.Adapter<InvestCateg
 
     public static class InvestCategoryAdapter extends RecyclerView.ViewHolder {
         ViewDataBinding viewDataBinding;
+        SeekBar mSeekBar;
+        TextView mTextProgress;
 
         public InvestCategoryAdapter(@NonNull ViewDataBinding viewDataBinding) {
             super(viewDataBinding.getRoot());
             this.viewDataBinding = viewDataBinding;
+            mSeekBar = itemView.findViewById(R.id.sb_invest_category_weight);
+            mTextProgress = itemView.findViewById(R.id.tv_invest_category_weight_value);
         }
 
         private void bind(InvestCategory investCategory){
             viewDataBinding.setVariable(BR.investCategory, investCategory);
+            mSeekBar.setOnSeekBarChangeListener(setSeekBarChangeListener());
             viewDataBinding.executePendingBindings();
         }
+
+        private SeekBar.OnSeekBarChangeListener setSeekBarChangeListener(){
+            return new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    mTextProgress.setText(String.valueOf(progress));
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            };
+        }
+
     }
 }
