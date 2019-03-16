@@ -18,9 +18,10 @@ public class DatabaseCategory {
     private static final String TAG = DatabaseCategory.class.getName();
     private DatabaseReference mDatabaseReference;
     private DatabaseCategoryPresenter mDatabaseCategoryPresenter;
-    private ArrayList<InvestCategory> mInvestCategory;
+    private ArrayList<InvestCategory> mInvestCategories;
 
     public DatabaseCategory(DatabaseCategoryPresenter databaseCategoryPresenter) {
+        mInvestCategories = new ArrayList<>();
         mDatabaseCategoryPresenter = databaseCategoryPresenter;
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(InvestCategory.class.getSimpleName());
         // InvestCategory DB object
@@ -29,12 +30,12 @@ public class DatabaseCategory {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){
-                            dataSnapshot.getValue();
-                            Log.d(TAG, dataSnapshot.toString());
-                            Log.d(TAG, String.valueOf(dataSnapshot.getValue()));
-                        } else {
-                            mDatabaseCategoryPresenter.setInvestCategoryUI(null);
+                            for (DataSnapshot child: dataSnapshot.getChildren()) {
+                                Log.d(TAG, "child value: "+ String.valueOf(child.getValue()));
+                                mInvestCategories.add(new InvestCategory(child));
+                            }
                         }
+                        mDatabaseCategoryPresenter.setInvestCategoryUI(mInvestCategories);
                     }
 
                     @Override
@@ -42,5 +43,16 @@ public class DatabaseCategory {
                         Log.e(TAG, "error from DB: " + databaseError.getMessage());
                     }
                 });
+    }
+
+    public void addCategory(InvestCategory investCategory){
+        DatabaseReference child = mDatabaseReference.child(investCategory.getType());
+        child.setValue(investCategory);
+        String id = child.push().getKey();
+        investCategory.setId(id);
+        Log.d(TAG, "addCategory: " + investCategory.toString());
+        child.setValue(investCategory);
+        mInvestCategories.add(investCategory);
+        mDatabaseCategoryPresenter.setInvestCategoryUI(mInvestCategories);
     }
 }

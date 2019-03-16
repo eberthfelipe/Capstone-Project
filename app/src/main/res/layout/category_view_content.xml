@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -55,15 +55,19 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_categories"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:scrollbars="vertical"
+            android:visibility="@{hasCategory ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_investments_category_icon"
-            android:visibility="@{hasCategory ? View.VISIBLE : View.INVISIBLE, default=invisible}"
-            />
+            tools:context=".view.MainActivity"
+            tools:listitem="@layout/category_view_holder" />
 
         <TextView
             android:id="@+id/tv_no_categories"

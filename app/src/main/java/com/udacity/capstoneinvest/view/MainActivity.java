@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity
 
     public void callBackDialog(String categoryType){
         Log.d("TESTE", "callback: " + categoryType);
+        mDatabaseCategoryPresenterImpl.addCategory(new InvestCategory(categoryType));
         // TODO save new category
     }
 
@@ -150,6 +151,10 @@ public class MainActivity extends AppCompatActivity
     public void setInvestCategoryUI(ArrayList<InvestCategory> databaseCategories) {
         if(databaseCategories == null){
             mActivityMainBinding.appBarMain.contentMain.categoryViewContent.setHasCategory(false);
+        } else {
+            mActivityMainBinding.appBarMain.contentMain.categoryViewContent.
+                    rvCategories.setAdapter(new InvestCategoryRecyclerView(databaseCategories));
+            mActivityMainBinding.appBarMain.contentMain.categoryViewContent.setHasCategory(true);
         }
     }
     //endregion

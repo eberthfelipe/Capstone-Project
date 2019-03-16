@@ -1,5 +1,7 @@
 package com.udacity.capstoneinvest.presenter;
 
+import android.support.annotation.NonNull;
+
 import com.udacity.capstoneinvest.data.DatabaseCategory;
 import com.udacity.capstoneinvest.object.InvestCategory;
 import com.udacity.capstoneinvest.view.InvestCategoryUI;
@@ -19,5 +21,10 @@ public class DatabaseCategoryPresenterImpl implements DatabaseCategoryPresenter{
     @Override
     public void setInvestCategoryUI(ArrayList<InvestCategory> databaseCategories) {
         mInvestCategoryUI.setInvestCategoryUI(databaseCategories);
+    }
+
+    public void addCategory(@NonNull InvestCategory investCategory){
+        mDatabaseCategory.addCategory(investCategory);
+
     }
 }

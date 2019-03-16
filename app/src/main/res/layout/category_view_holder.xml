@@ -12,6 +12,7 @@
     <android.support.design.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
         app:cardElevation="@dimen/margin_default"
         android:elevation="@dimen/margin_default"
         android:id="@+id/cv_category_view_content"
@@ -63,7 +64,7 @@
                 android:layout_marginStart="@dimen/margin_default"
                 android:layout_marginTop="@dimen/margin_default"
                 android:layout_marginBottom="@dimen/margin_default"
-                android:text="@{investCategory.weight}"
+                android:text="@{String.valueOf(investCategory.weight)}"
                 android:textSize="@dimen/dialog_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

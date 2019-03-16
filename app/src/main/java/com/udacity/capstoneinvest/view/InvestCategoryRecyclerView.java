@@ -18,7 +18,7 @@ public class InvestCategoryRecyclerView extends RecyclerView.Adapter<InvestCateg
     private ArrayList<InvestCategory> mInvestCategories;
 
     public InvestCategoryRecyclerView(ArrayList<InvestCategory> mInvestCategories) {
-        this.mInvestCategories = mInvestCategories;
+        this.mInvestCategories = new ArrayList<>(mInvestCategories);
     }
 
     @NonNull
