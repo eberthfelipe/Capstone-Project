@@ -19,4 +19,5 @@
     <string name="total_invested">Total Invested:</string>
     <string name="real">R$ %s</string>
     <string name="categories_when_have_none">Please, create categories for your investments!</string>
+    <string name="weight">Weight:</string>
 </resources>
