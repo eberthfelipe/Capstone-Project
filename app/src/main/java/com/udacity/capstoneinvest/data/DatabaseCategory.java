@@ -57,12 +57,31 @@ public class DatabaseCategory {
         mDatabaseCategoryPresenter.setInvestCategoryUI(mInvestCategories);
     }
 
-    public void updateWeightValue(int position, int value) {
+    public boolean updateWeightValue(int position, int value) {
         Log.d(TAG, "updateWeightValue: " + mInvestCategories.get(position) + " | " + value);
-        Query query = mDatabaseReference.child(mInvestCategories.get(position).getType())
-                .orderByChild(InvestCategory.DATABASE_ID_FIELD)
-                .equalTo(mInvestCategories.get(position).getId());
-        mInvestCategories.get(position).setWeight(value);
-        query.getRef().setValue(mInvestCategories.get(position));
+        if(percentagePossible(position, value)){
+            Query query = mDatabaseReference.child(mInvestCategories.get(position).getType())
+                    .orderByChild(InvestCategory.DATABASE_ID_FIELD)
+                    .equalTo(mInvestCategories.get(position).getId());
+            mInvestCategories.get(position).setWeight(value);
+            query.getRef().setValue(mInvestCategories.get(position));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * The MAX value of all weight must be 100
+     * @param position of InvestCategory in array list
+     * @param value set by the user
+     * @return boolean
+     */
+    private boolean percentagePossible(int position, int value){
+        final int MAX = 100;
+        int aux = 0;
+        for (int i=0; i < mInvestCategories.size(); i++) {
+            aux += position != i ? mInvestCategories.get(i).getWeight() : value;
+        }
+        return aux <= MAX;
     }
 }

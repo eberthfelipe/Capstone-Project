@@ -7,5 +7,5 @@ import java.util.ArrayList;
 public interface DatabaseCategoryPresenter {
 
     void setInvestCategoryUI(ArrayList<InvestCategory> databaseCategories);
-    void updateWeightValue(int position, int value);
+    boolean updateWeightValue(int position, int value);
 }

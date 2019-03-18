@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity
                 setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 CategoryDialogFragment categoryDialogFragment = new CategoryDialogFragment();
                 categoryDialogFragment.show(getSupportFragmentManager(), categoryDialogFragment.getTag());
             }
@@ -160,7 +158,15 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void updateWeight(int position, int value) {
-        mDatabaseCategoryPresenterImpl.updateWeightValue(position, value);
+        if(!mDatabaseCategoryPresenterImpl.updateWeightValue(position, value)){
+            mActivityMainBinding.appBarMain.contentMain.categoryViewContent.rvCategories.getAdapter().notifyItemChanged(position);
+            showWarning(getString(R.string.update_weight), getString(R.string.warning_max_weight));
+        }
     }
     //endregion
+
+    public void showWarning(String action, String text){
+        Snackbar.make(mActivityMainBinding.getRoot(),text, Snackbar.LENGTH_LONG)
+                .setAction(action, null).show();
+    }
 }

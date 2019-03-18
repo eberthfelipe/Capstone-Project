@@ -20,4 +20,6 @@
     <string name="real">R$ %s</string>
     <string name="categories_when_have_none">Please, create categories for your investments!</string>
     <string name="weight">Weight:</string>
+    <string name="update_weight">Update weight</string>
+    <string name="warning_max_weight">The maximum value of all weight must be 100!</string>
 </resources>

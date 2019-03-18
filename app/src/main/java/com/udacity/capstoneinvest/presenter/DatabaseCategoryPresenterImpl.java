@@ -24,8 +24,8 @@ public class DatabaseCategoryPresenterImpl implements DatabaseCategoryPresenter{
     }
 
     @Override
-    public void updateWeightValue(int position, int value) {
-        mDatabaseCategory.updateWeightValue(position, value);
+    public boolean updateWeightValue(int position, int value) {
+        return mDatabaseCategory.updateWeightValue(position, value);
     }
 
     public void addCategory(@NonNull InvestCategory investCategory){
