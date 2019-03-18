@@ -18,9 +18,11 @@ import java.util.ArrayList;
 public class InvestCategoryRecyclerView extends RecyclerView.Adapter<InvestCategoryRecyclerView.InvestCategoryAdapter> {
 
     private ArrayList<InvestCategory> mInvestCategories;
+    private InvestCategoryUI mInvestCategoryUI;
 
-    public InvestCategoryRecyclerView(ArrayList<InvestCategory> mInvestCategories) {
+    public InvestCategoryRecyclerView(ArrayList<InvestCategory> mInvestCategories, InvestCategoryUI investCategoryUI) {
         this.mInvestCategories = new ArrayList<>(mInvestCategories);
+        this.mInvestCategoryUI = investCategoryUI;
     }
 
     @NonNull
@@ -28,7 +30,7 @@ public class InvestCategoryRecyclerView extends RecyclerView.Adapter<InvestCateg
     public InvestCategoryAdapter onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         ViewDataBinding viewDataBinding = DataBindingUtil.inflate(layoutInflater, R.layout.category_view_holder, viewGroup, false);
-        return new InvestCategoryAdapter(viewDataBinding);
+        return new InvestCategoryAdapter(viewDataBinding, mInvestCategoryUI);
     }
 
     @Override
@@ -44,12 +46,14 @@ public class InvestCategoryRecyclerView extends RecyclerView.Adapter<InvestCateg
 
     public static class InvestCategoryAdapter extends RecyclerView.ViewHolder {
         ViewDataBinding viewDataBinding;
+        InvestCategoryUI investCategoryUI;
         SeekBar mSeekBar;
         TextView mTextProgress;
 
-        public InvestCategoryAdapter(@NonNull ViewDataBinding viewDataBinding) {
+        public InvestCategoryAdapter(@NonNull ViewDataBinding viewDataBinding, InvestCategoryUI investCategoryUI) {
             super(viewDataBinding.getRoot());
             this.viewDataBinding = viewDataBinding;
+            this.investCategoryUI = investCategoryUI;
             mSeekBar = itemView.findViewById(R.id.sb_invest_category_weight);
             mTextProgress = itemView.findViewById(R.id.tv_invest_category_weight_value);
         }
@@ -74,7 +78,7 @@ public class InvestCategoryRecyclerView extends RecyclerView.Adapter<InvestCateg
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-
+                    investCategoryUI.updateWeight((Integer) itemView.getTag(), mSeekBar.getProgress());
                 }
             };
         }

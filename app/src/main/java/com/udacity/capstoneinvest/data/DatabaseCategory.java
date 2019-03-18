@@ -7,6 +7,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.udacity.capstoneinvest.object.InvestCategory;
 import com.udacity.capstoneinvest.presenter.DatabaseCategoryPresenter;
@@ -54,5 +55,14 @@ public class DatabaseCategory {
         child.setValue(investCategory);
         mInvestCategories.add(investCategory);
         mDatabaseCategoryPresenter.setInvestCategoryUI(mInvestCategories);
+    }
+
+    public void updateWeightValue(int position, int value) {
+        Log.d(TAG, "updateWeightValue: " + mInvestCategories.get(position) + " | " + value);
+        Query query = mDatabaseReference.child(mInvestCategories.get(position).getType())
+                .orderByChild(InvestCategory.DATABASE_ID_FIELD)
+                .equalTo(mInvestCategories.get(position).getId());
+        mInvestCategories.get(position).setWeight(value);
+        query.getRef().setValue(mInvestCategories.get(position));
     }
 }

@@ -153,9 +153,14 @@ public class MainActivity extends AppCompatActivity
             mActivityMainBinding.appBarMain.contentMain.categoryViewContent.setHasCategory(false);
         } else {
             mActivityMainBinding.appBarMain.contentMain.categoryViewContent.
-                    rvCategories.setAdapter(new InvestCategoryRecyclerView(databaseCategories));
+                    rvCategories.setAdapter(new InvestCategoryRecyclerView(databaseCategories, this));
             mActivityMainBinding.appBarMain.contentMain.categoryViewContent.setHasCategory(true);
         }
+    }
+
+    @Override
+    public void updateWeight(int position, int value) {
+        mDatabaseCategoryPresenterImpl.updateWeightValue(position, value);
     }
     //endregion
 }

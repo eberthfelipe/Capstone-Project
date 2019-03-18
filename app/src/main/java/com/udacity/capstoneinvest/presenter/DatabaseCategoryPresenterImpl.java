@@ -23,6 +23,11 @@ public class DatabaseCategoryPresenterImpl implements DatabaseCategoryPresenter{
         mInvestCategoryUI.setInvestCategoryUI(databaseCategories);
     }
 
+    @Override
+    public void updateWeightValue(int position, int value) {
+        mDatabaseCategory.updateWeightValue(position, value);
+    }
+
     public void addCategory(@NonNull InvestCategory investCategory){
         mDatabaseCategory.addCategory(investCategory);
 
