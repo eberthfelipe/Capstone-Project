@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_account_balance"
             android:title="@string/investment_category" />
         <item
+            android:id="@+id/nav_financial_assets"
+            android:icon="@drawable/ic_financial_asset"
+            android:title="@string/financial_assets" />
+        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/settings" />

@@ -1,4 +1,4 @@
-package com.udacity.capstoneinvest.view;
+package com.udacity.capstoneinvest.view.dialog;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.DialogInvestmentCategoryBinding;
+import com.udacity.capstoneinvest.view.InvestCategoryFragment;
 
 public class CategoryDialogFragment extends DialogFragment {
 
@@ -23,8 +24,8 @@ public class CategoryDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mDialogInvestmentCategoryBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()),R.layout.dialog_investment_category, container, false);
-        mDialogInvestmentCategoryBinding.btDialogCreateCategory.setOnClickListener(getPositiveDialogClick());
-        mDialogInvestmentCategoryBinding.btDialogCancelCategory.setOnClickListener(getNegativeDialogClick());
+        mDialogInvestmentCategoryBinding.viewButtonsCreateCancel.btDialogCreateCategory.setOnClickListener(getPositiveDialogClick());
+        mDialogInvestmentCategoryBinding.viewButtonsCreateCancel.btDialogCancelCategory.setOnClickListener(getNegativeDialogClick());
         return mDialogInvestmentCategoryBinding.getRoot();
     }
 

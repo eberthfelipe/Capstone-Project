@@ -28,47 +28,13 @@
             android:textAppearance="@android:style/Theme.Dialog"
             android:textSize="@dimen/dialog_text"
             android:hint="@string/add_category_name"
+            android:layout_marginTop="@dimen/margin_default"
             android:inputType="text"
             android:importantForAutofill="no"
             tools:targetApi="o" />
 
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="bottom|end"
-            android:layout_marginTop="@dimen/margin_large"
-            android:layout_marginBottom="@dimen/margin_default"
-            >
-
-            <Button
-                android:id="@+id/bt_dialog_cancel_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cancel"
-                android:layout_marginEnd="@dimen/margin_default"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/ripple_effect"
-                android:background="@color/colorTransparent"
-                android:textSize="@dimen/dialog_text"
-                style="@style/Theme.AppCompat.DayNight.Dialog"
-                />
-            <Button
-                android:id="@+id/bt_dialog_create_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dialog_create"
-                android:layout_marginEnd="@dimen/margin_default"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/ripple_effect"
-                android:background="@color/colorTransparent"
-                android:textSize="@dimen/dialog_text"
-                style="@style/Theme.AppCompat.DayNight.Dialog"
-                />
-        </LinearLayout>
+        <include layout="@layout/view_buttons_create_cancel"
+            android:id="@+id/view_buttons_create_cancel"/>
 
     </LinearLayout>
 </layout>
