@@ -36,7 +36,9 @@ public class CategoryDialogFragment extends DialogFragment {
                 if (TextUtils.isEmpty(categoryType)) {
                     showToast();
                 } else {
-                    ((MainActivity)getActivity()).callBackDialog(categoryType);
+                    InvestCategoryFragment investCategoryFragment = (InvestCategoryFragment)getActivity().getSupportFragmentManager().getFragments().get(0);
+                    if(investCategoryFragment != null)
+                        investCategoryFragment.callBackDialog(categoryType);
                     dismiss();
                 }
             }

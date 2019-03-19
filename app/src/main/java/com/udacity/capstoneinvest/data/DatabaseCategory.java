@@ -24,7 +24,8 @@ public class DatabaseCategory {
     public DatabaseCategory(DatabaseCategoryPresenter databaseCategoryPresenter) {
         mInvestCategories = new ArrayList<>();
         mDatabaseCategoryPresenter = databaseCategoryPresenter;
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference(InvestCategory.class.getSimpleName());
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference(InvestCategory.class.getSimpleName())
+                .orderByValue().getRef();
         // InvestCategory DB object
         mDatabaseReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {

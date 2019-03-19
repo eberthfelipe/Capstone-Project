@@ -88,5 +88,4 @@
     </android.support.constraint.ConstraintLayout>
 </layout>
 
-<!--TODO 0: Add variable to check if recycler view or warning-->
-<!--TODO 1: Create view warning: to user create categories -->
+<!--TODO: Create progress bar to show view only when ready-->
