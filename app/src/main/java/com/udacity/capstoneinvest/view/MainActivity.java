@@ -17,15 +17,22 @@ import android.view.View;
 
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.ActivityMainBinding;
+import com.udacity.capstoneinvest.object.InvestCategory;
+import com.udacity.capstoneinvest.presenter.DatabaseCategoryPresenterImpl;
+import com.udacity.capstoneinvest.presenter.DatabasePortfolioPresenterImpl;
 import com.udacity.capstoneinvest.view.dialog.CategoryDialogFragment;
 import com.udacity.capstoneinvest.view.dialog.FinancialAssetDialogFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ManagerUI {
 
     private static final String TAG = MainActivity.class.getName();
     private ActivityMainBinding mActivityMainBinding;
+    private DatabasePortfolioPresenterImpl mDatabasePortfolioPresenterImpl;
+    private DatabaseCategoryPresenterImpl mDatabaseCategoryPresenterImpl;
     private Fragment mCurrentFragment;
+    private InvestCategoryFragment mInvestCategoryFragment;
+    private FinancialAssetFragment mFinancialAssetFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,13 +101,10 @@ public class MainActivity extends AppCompatActivity
 
     private void init() {
         mActivityMainBinding.navView.setNavigationItemSelectedListener(this);
-        mActivityMainBinding.navView.setCheckedItem(R.id.nav_account_balance);
-
         //TODO save current fragment
-        mCurrentFragment = new InvestCategoryFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container_main, mCurrentFragment)
-                .commit();
+        mActivityMainBinding.navView.setCheckedItem(R.id.nav_account_balance);
+        setCurrentFragment(getInvestCategoryFragment());
+        setupPresenter();
     }
 
     public View.OnClickListener handleFabClick(){
@@ -123,18 +127,66 @@ public class MainActivity extends AppCompatActivity
         switch (id){
             case R.id.nav_account_balance:
                 if(!(mCurrentFragment instanceof InvestCategoryFragment)){
-                    mCurrentFragment = new InvestCategoryFragment();
+                    setCurrentFragment(getInvestCategoryFragment());
                 }
                 break;
             case R.id.nav_financial_assets:
                 if(!(mCurrentFragment instanceof FinancialAssetFragment)){
-                    mCurrentFragment = new FinancialAssetFragment();
+                    setCurrentFragment(getFinancialAssetFragment());
                 }
                 break;
         }
+    }
+
+    //region ManagerUI
+
+    public void callBackInvestCategoryDialog(String categoryType){
+        Log.d(TAG, "callBackInvestCategoryDialog: " + categoryType);
+        mDatabaseCategoryPresenterImpl.addCategory(new InvestCategory(categoryType));
+    }
+
+    private void setupPresenter(){
+        if(mCurrentFragment instanceof InvestCategoryFragment){
+            mDatabasePortfolioPresenterImpl = new DatabasePortfolioPresenterImpl(this);
+            mDatabaseCategoryPresenterImpl = new DatabaseCategoryPresenterImpl(this);
+        }
+    }
+
+    @Override
+    public InvestCategoryUI getInvestCategoryUi() {
+        return getInvestCategoryFragment();
+    }
+
+    @Override
+    public InvestmentPortfolioUI getInvestmentPortfolioUi() {
+        return getInvestCategoryFragment();
+    }
+
+    public DatabaseCategoryPresenterImpl getDatabaseCategoryPresenter(){
+        return mDatabaseCategoryPresenterImpl;
+    }
+    //endregion
+
+    //region Fragments
+    private void setCurrentFragment(@NonNull Fragment fragment){
+        mCurrentFragment = fragment;
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_main, mCurrentFragment)
                 .commit();
     }
+
+    private InvestCategoryFragment getInvestCategoryFragment(){
+        if(mInvestCategoryFragment == null)
+            mInvestCategoryFragment = new InvestCategoryFragment();
+        return mInvestCategoryFragment;
+    }
+
+    private FinancialAssetFragment getFinancialAssetFragment(){
+        if(mFinancialAssetFragment == null)
+            mFinancialAssetFragment = new FinancialAssetFragment();
+        return mFinancialAssetFragment;
+    }
+
+    //endregion
 
 }

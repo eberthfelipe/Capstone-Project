@@ -8,4 +8,5 @@ public interface DatabaseCategoryPresenter {
 
     void setInvestCategoryUI(ArrayList<InvestCategory> databaseCategories);
     boolean updateWeightValue(int position, int value);
+    ArrayList<InvestCategory> getInvestCategories();
 }

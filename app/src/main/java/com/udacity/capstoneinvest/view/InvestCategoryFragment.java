@@ -15,7 +15,6 @@ import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.ContentMainBinding;
 import com.udacity.capstoneinvest.object.InvestCategory;
 import com.udacity.capstoneinvest.presenter.DatabaseCategoryPresenterImpl;
-import com.udacity.capstoneinvest.presenter.DatabasePortfolioPresenterImpl;
 
 import java.util.ArrayList;
 
@@ -24,17 +23,15 @@ public class InvestCategoryFragment extends Fragment
 
     private static final String TAG = InvestCategoryFragment.class.getName();
     private ContentMainBinding mContentMainBinding;
-    private DatabasePortfolioPresenterImpl mDatabasePortfolioPresenterImpl;
-    private DatabaseCategoryPresenterImpl mDatabaseCategoryPresenterImpl;
+
 
     public InvestCategoryFragment() {
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        mDatabasePortfolioPresenterImpl = new DatabasePortfolioPresenterImpl(this);
-        mDatabaseCategoryPresenterImpl = new DatabaseCategoryPresenterImpl(this);
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
@@ -65,11 +62,6 @@ public class InvestCategoryFragment extends Fragment
                 .setAction(action, null).show();
     }
 
-    public void callBackDialog(String categoryType){
-        Log.d(TAG, "callback: " + categoryType);
-        mDatabaseCategoryPresenterImpl.addCategory(new InvestCategory(categoryType));
-    }
-
     //region DatabasePortfolioPresenterImpl to access InvestmentPortfolio object
     @Override
     public void setTotalInvestedUI(double value) {
@@ -91,10 +83,15 @@ public class InvestCategoryFragment extends Fragment
 
     @Override
     public void updateWeight(int position, int value) {
-        if(!mDatabaseCategoryPresenterImpl.updateWeightValue(position, value)){
+        DatabaseCategoryPresenterImpl databaseCategoryPresenter = getMainActivity().getDatabaseCategoryPresenter();
+        if(!databaseCategoryPresenter.updateWeightValue(position, value)){
             mContentMainBinding.categoryViewContent.rvCategories.getAdapter().notifyItemChanged(position);
             showWarning(getString(R.string.update_weight), getString(R.string.warning_max_weight));
         }
     }
     //endregion
+
+    public MainActivity getMainActivity(){
+        return (MainActivity) getActivity();
+    }
 }

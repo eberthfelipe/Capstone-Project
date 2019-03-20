@@ -71,6 +71,10 @@ public class DatabaseCategory {
         return false;
     }
 
+    public ArrayList<InvestCategory> getInvestCategories(){
+        return mInvestCategories;
+    }
+
     /**
      * The MAX value of all weight must be 100
      * @param position of InvestCategory in array list
@@ -85,4 +89,5 @@ public class DatabaseCategory {
         }
         return aux <= MAX;
     }
+
 }

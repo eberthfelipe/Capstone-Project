@@ -1,21 +1,21 @@
 package com.udacity.capstoneinvest.presenter;
 
 import com.udacity.capstoneinvest.data.DatabasePortfolio;
-import com.udacity.capstoneinvest.view.InvestmentPortfolioUI;
+import com.udacity.capstoneinvest.view.ManagerUI;
 
 public class DatabasePortfolioPresenterImpl implements DatabasePortfolioPresenter {
 
     private DatabasePortfolio mDatabasePortfolio;
-    private InvestmentPortfolioUI mInvestmentPortfolioUI;
+    private ManagerUI mManagerUI;
 
-    public DatabasePortfolioPresenterImpl(InvestmentPortfolioUI mInvestmentPortfolioUI) {
-        this.mInvestmentPortfolioUI = mInvestmentPortfolioUI;
+    public DatabasePortfolioPresenterImpl(ManagerUI managerUI) {
+        this.mManagerUI = managerUI;
         mDatabasePortfolio = new DatabasePortfolio(this);
     }
 
     @Override
     public void setTotalInvestedUI(double value) {
-        mInvestmentPortfolioUI.setTotalInvestedUI(value);
+        mManagerUI.getInvestmentPortfolioUi().setTotalInvestedUI(value);
     }
 
 }

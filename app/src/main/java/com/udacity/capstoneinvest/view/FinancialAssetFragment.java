@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.udacity.capstoneinvest.databinding.FinancialAssetViewContentBinding;
 
 public class FinancialAssetFragment extends Fragment {
 
+    private static final String TAG = FinancialAssetFragment.class.getName();
     private FinancialAssetViewContentBinding mFinancialAssetViewContentBinding;
 
     public FinancialAssetFragment() {
@@ -27,5 +29,10 @@ public class FinancialAssetFragment extends Fragment {
         mFinancialAssetViewContentBinding.setHasFinancialAsset(false);
 
         return mFinancialAssetViewContentBinding.getRoot();
+    }
+
+    public void callBackDialog(String categoryType){
+        Log.d(TAG, "callback: " + categoryType);
+//        mDatabaseCategoryPresenterImpl.addCategory(new InvestCategory(categoryType));
     }
 }

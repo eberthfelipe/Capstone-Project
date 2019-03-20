@@ -13,9 +13,10 @@ import android.widget.Toast;
 
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.DialogInvestmentCategoryBinding;
-import com.udacity.capstoneinvest.view.InvestCategoryFragment;
+import com.udacity.capstoneinvest.view.MainActivity;
 
-public class CategoryDialogFragment extends DialogFragment {
+public class CategoryDialogFragment extends DialogFragment
+        implements com.udacity.capstoneinvest.view.dialog.DialogFragment {
 
     private DialogInvestmentCategoryBinding mDialogInvestmentCategoryBinding;
 
@@ -29,23 +30,24 @@ public class CategoryDialogFragment extends DialogFragment {
         return mDialogInvestmentCategoryBinding.getRoot();
     }
 
+    @Override
     public View.OnClickListener getPositiveDialogClick(){
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String categoryType = mDialogInvestmentCategoryBinding.etDialogCategory.getText().toString();
                 if (TextUtils.isEmpty(categoryType)) {
-                    showToast();
+                    showToast(getString(R.string.empty_category));
                 } else {
-                    InvestCategoryFragment investCategoryFragment = (InvestCategoryFragment)getActivity().getSupportFragmentManager().getFragments().get(0);
-                    if(investCategoryFragment != null)
-                        investCategoryFragment.callBackDialog(categoryType);
+                    if(getActivity() != null)
+                        ((MainActivity)getActivity()).callBackInvestCategoryDialog(categoryType);
                     dismiss();
                 }
             }
         };
     }
 
+    @Override
     public View.OnClickListener getNegativeDialogClick(){
         return new View.OnClickListener() {
             @Override
@@ -55,7 +57,8 @@ public class CategoryDialogFragment extends DialogFragment {
         };
     }
 
-    public void showToast(){
-        Toast.makeText(getContext(), "Empty category!", Toast.LENGTH_SHORT).show();
+    @Override
+    public void showToast(String text){
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
     }
 }
