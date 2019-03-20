@@ -155,12 +155,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setupPresenter(){
-//        if(mCurrentFragment instanceof InvestCategoryFragment){
+        if(mCurrentFragment instanceof InvestCategoryFragment){
             mPortfolioPresenterImpl = new PortfolioPresenterImpl(this);
             mCategoryPresenterImpl = new CategoryPresenterImpl(this);
-//        } else if(mCurrentFragment instanceof FinancialAssetFragment){
+        } else if(mCurrentFragment instanceof FinancialAssetFragment){
             mFinancialPresenterImpl = new FinancialPresenterImpl(this);
-//        }
+        }
     }
 
     @Override
@@ -189,6 +189,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_main, mCurrentFragment)
                 .commit();
+        setupPresenter();
     }
 
     private InvestCategoryFragment getInvestCategoryFragment(){

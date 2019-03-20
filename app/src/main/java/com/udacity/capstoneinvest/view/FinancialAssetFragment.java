@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,16 +34,17 @@ public class FinancialAssetFragment extends Fragment
         return mFinancialAssetViewContentBinding.getRoot();
     }
 
-    public void callBackDialog(String categoryType){
-        Log.d(TAG, "callback: " + categoryType);
-//        mDatabaseCategoryPresenterImpl.addCategory(new InvestCategory(categoryType));
-    }
-
     //region FinancialAssetUI
 
     @Override
-    public void setInvestCategoryUI(ArrayList<FinancialAsset> financialAssets) {
-
+    public void setFinancialAssetUI(ArrayList<FinancialAsset> financialAssets) {
+        if(financialAssets == null){
+            mFinancialAssetViewContentBinding.setHasFinancialAsset(false);
+        } else {
+            mFinancialAssetViewContentBinding.rvFinancialAssets
+                    .setAdapter(new FinancialAssetRecyclerView(financialAssets));
+            mFinancialAssetViewContentBinding.setHasFinancialAsset(true);
+        }
     }
 
     //endregion

@@ -21,15 +21,15 @@ public class DatabaseCategory extends Database{
     private ArrayList<InvestCategory> mInvestCategories;
 
     public DatabaseCategory(CategoryPresenter categoryPresenter) {
-        mInvestCategories = new ArrayList<>();
         mCategoryPresenter = categoryPresenter;
         setDatabaseReference(FirebaseDatabase.getInstance().getReference(InvestCategory.class.getSimpleName())
                 .orderByValue().getRef());
         // InvestCategory DB object
-        getDatabaseReference().addListenerForSingleValueEvent(
+        getDatabaseReference().addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        mInvestCategories = new ArrayList<>();
                         if(dataSnapshot.exists()){
                             for (DataSnapshot child: dataSnapshot.getChildren()) {
                                 Log.d(TAG, "child value: "+ String.valueOf(child.getValue()));
@@ -54,7 +54,6 @@ public class DatabaseCategory extends Database{
         Log.d(TAG, "addCategory: " + investCategory.toString());
         child.setValue(investCategory);
         mInvestCategories.add(investCategory);
-        mCategoryPresenter.setInvestCategoryUI(mInvestCategories);
     }
 
     public boolean updateWeightValue(int position, int value) {

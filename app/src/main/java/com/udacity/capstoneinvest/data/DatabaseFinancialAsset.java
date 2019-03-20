@@ -21,12 +21,12 @@ public class DatabaseFinancialAsset extends Database{
 
     public DatabaseFinancialAsset(FinancialAssetPresenter financialAssetPresenter) {
         this.mFinancialAssetPresenter = financialAssetPresenter;
-        mFinancialAssets = new ArrayList<>();
         setDatabaseReference(FirebaseDatabase.getInstance().getReference(FinancialAsset.class.getSimpleName())
                 .orderByValue().getRef());
         getDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mFinancialAssets = new ArrayList<>();
                 if(dataSnapshot.exists()){
                     for (DataSnapshot child: dataSnapshot.getChildren()) {
                         Log.d(TAG, "child value: "+ String.valueOf(child.getValue()));

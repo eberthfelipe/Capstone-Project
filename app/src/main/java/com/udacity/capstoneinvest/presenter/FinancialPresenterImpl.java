@@ -20,7 +20,7 @@ public class FinancialPresenterImpl implements FinancialAssetPresenter{
 
     @Override
     public void setFinancialAssetUI(ArrayList<FinancialAsset> financialAssets) {
-
+        mManagerUI.getFinancialAssetUi().setFinancialAssetUI(financialAssets);
     }
 
     public void addFinancialAsset(@NonNull FinancialAsset financialAsset){

@@ -23,7 +23,7 @@ public class DatabasePortfolio extends Database{
         setDatabaseReference(FirebaseDatabase.getInstance().getReference(InvestmentPortfolio.class.getSimpleName()));
 
         // InvestmentPortfolio DB object
-        getDatabaseReference().child(InvestmentPortfolio.DATABASE_VALUE_TOTAL_FIELD).addListenerForSingleValueEvent(
+        getDatabaseReference().child(InvestmentPortfolio.DATABASE_VALUE_TOTAL_FIELD).addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
