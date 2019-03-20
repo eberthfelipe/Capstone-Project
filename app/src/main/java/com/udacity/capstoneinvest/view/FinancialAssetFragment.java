@@ -12,8 +12,12 @@ import android.view.ViewGroup;
 
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.FinancialAssetViewContentBinding;
+import com.udacity.capstoneinvest.object.FinancialAsset;
 
-public class FinancialAssetFragment extends Fragment {
+import java.util.ArrayList;
+
+public class FinancialAssetFragment extends Fragment
+        implements FinancialAssetUI {
 
     private static final String TAG = FinancialAssetFragment.class.getName();
     private FinancialAssetViewContentBinding mFinancialAssetViewContentBinding;
@@ -35,4 +39,13 @@ public class FinancialAssetFragment extends Fragment {
         Log.d(TAG, "callback: " + categoryType);
 //        mDatabaseCategoryPresenterImpl.addCategory(new InvestCategory(categoryType));
     }
+
+    //region FinancialAssetUI
+
+    @Override
+    public void setInvestCategoryUI(ArrayList<FinancialAsset> financialAssets) {
+
+    }
+
+    //endregion
 }

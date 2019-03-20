@@ -3,12 +3,12 @@ package com.udacity.capstoneinvest.presenter;
 import com.udacity.capstoneinvest.data.DatabasePortfolio;
 import com.udacity.capstoneinvest.view.ManagerUI;
 
-public class DatabasePortfolioPresenterImpl implements DatabasePortfolioPresenter {
+public class PortfolioPresenterImpl implements PortfolioPresenter {
 
     private DatabasePortfolio mDatabasePortfolio;
     private ManagerUI mManagerUI;
 
-    public DatabasePortfolioPresenterImpl(ManagerUI managerUI) {
+    public PortfolioPresenterImpl(ManagerUI managerUI) {
         this.mManagerUI = managerUI;
         mDatabasePortfolio = new DatabasePortfolio(this);
     }

@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import android.view.ViewGroup;
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.ContentMainBinding;
 import com.udacity.capstoneinvest.object.InvestCategory;
-import com.udacity.capstoneinvest.presenter.DatabaseCategoryPresenterImpl;
+import com.udacity.capstoneinvest.presenter.CategoryPresenterImpl;
 
 import java.util.ArrayList;
 
@@ -62,14 +61,14 @@ public class InvestCategoryFragment extends Fragment
                 .setAction(action, null).show();
     }
 
-    //region DatabasePortfolioPresenterImpl to access InvestmentPortfolio object
+    //region PortfolioPresenterImpl to access InvestmentPortfolio object
     @Override
     public void setTotalInvestedUI(double value) {
         mContentMainBinding.setTotal(value);
     }
     //endregion
 
-    //region DatabaseCategoryPresenterImpl to access InvestCategory object
+    //region CategoryPresenterImpl to access InvestCategory object
     @Override
     public void setInvestCategoryUI(ArrayList<InvestCategory> databaseCategories) {
         if(databaseCategories == null){
@@ -83,7 +82,7 @@ public class InvestCategoryFragment extends Fragment
 
     @Override
     public void updateWeight(int position, int value) {
-        DatabaseCategoryPresenterImpl databaseCategoryPresenter = getMainActivity().getDatabaseCategoryPresenter();
+        CategoryPresenterImpl databaseCategoryPresenter = getMainActivity().getDatabaseCategoryPresenter();
         if(!databaseCategoryPresenter.updateWeightValue(position, value)){
             mContentMainBinding.categoryViewContent.rvCategories.getAdapter().notifyItemChanged(position);
             showWarning(getString(R.string.update_weight), getString(R.string.warning_max_weight));

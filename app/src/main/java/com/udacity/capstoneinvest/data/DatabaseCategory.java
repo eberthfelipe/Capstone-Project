@@ -10,24 +10,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.udacity.capstoneinvest.object.InvestCategory;
-import com.udacity.capstoneinvest.presenter.DatabaseCategoryPresenter;
+import com.udacity.capstoneinvest.presenter.CategoryPresenter;
 
 import java.util.ArrayList;
 
-public class DatabaseCategory {
+public class DatabaseCategory extends Database{
 
     private static final String TAG = DatabaseCategory.class.getName();
-    private DatabaseReference mDatabaseReference;
-    private DatabaseCategoryPresenter mDatabaseCategoryPresenter;
+    private CategoryPresenter mCategoryPresenter;
     private ArrayList<InvestCategory> mInvestCategories;
 
-    public DatabaseCategory(DatabaseCategoryPresenter databaseCategoryPresenter) {
+    public DatabaseCategory(CategoryPresenter categoryPresenter) {
         mInvestCategories = new ArrayList<>();
-        mDatabaseCategoryPresenter = databaseCategoryPresenter;
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference(InvestCategory.class.getSimpleName())
-                .orderByValue().getRef();
+        mCategoryPresenter = categoryPresenter;
+        setDatabaseReference(FirebaseDatabase.getInstance().getReference(InvestCategory.class.getSimpleName())
+                .orderByValue().getRef());
         // InvestCategory DB object
-        mDatabaseReference.addListenerForSingleValueEvent(
+        getDatabaseReference().addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -37,7 +36,7 @@ public class DatabaseCategory {
                                 mInvestCategories.add(new InvestCategory(child));
                             }
                         }
-                        mDatabaseCategoryPresenter.setInvestCategoryUI(mInvestCategories);
+                        mCategoryPresenter.setInvestCategoryUI(mInvestCategories);
                     }
 
                     @Override
@@ -48,20 +47,20 @@ public class DatabaseCategory {
     }
 
     public void addCategory(InvestCategory investCategory){
-        DatabaseReference child = mDatabaseReference.child(investCategory.getType());
+        DatabaseReference child = getDatabaseReference().child(investCategory.getType());
         child.setValue(investCategory);
         String id = child.push().getKey();
         investCategory.setId(id);
         Log.d(TAG, "addCategory: " + investCategory.toString());
         child.setValue(investCategory);
         mInvestCategories.add(investCategory);
-        mDatabaseCategoryPresenter.setInvestCategoryUI(mInvestCategories);
+        mCategoryPresenter.setInvestCategoryUI(mInvestCategories);
     }
 
     public boolean updateWeightValue(int position, int value) {
         Log.d(TAG, "updateWeightValue: " + mInvestCategories.get(position) + " | " + value);
         if(percentagePossible(position, value)){
-            Query query = mDatabaseReference.child(mInvestCategories.get(position).getType())
+            Query query = getDatabaseReference().child(mInvestCategories.get(position).getType())
                     .orderByChild(InvestCategory.DATABASE_ID_FIELD)
                     .equalTo(mInvestCategories.get(position).getId());
             mInvestCategories.get(position).setWeight(value);

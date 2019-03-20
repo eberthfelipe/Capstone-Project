@@ -5,27 +5,25 @@ import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.udacity.capstoneinvest.object.InvestmentPortfolio;
-import com.udacity.capstoneinvest.presenter.DatabasePortfolioPresenter;
+import com.udacity.capstoneinvest.presenter.PortfolioPresenter;
 
 
-public class DatabasePortfolio {
+public class DatabasePortfolio extends Database{
 
     private static final String TAG = DatabasePortfolio.class.getName();
-    private DatabaseReference mDatabaseReference;
     private InvestmentPortfolio mInvestmentPortfolio;
-    private DatabasePortfolioPresenter mDatabasePortfolioPresenter;
+    private PortfolioPresenter mPortfolioPresenter;
 
-    public DatabasePortfolio(DatabasePortfolioPresenter databasePortfolioPresenter) {
-        mDatabasePortfolioPresenter = databasePortfolioPresenter;
+    public DatabasePortfolio(PortfolioPresenter portfolioPresenter) {
+        mPortfolioPresenter = portfolioPresenter;
         mInvestmentPortfolio = new InvestmentPortfolio();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference(InvestmentPortfolio.class.getSimpleName());
+        setDatabaseReference(FirebaseDatabase.getInstance().getReference(InvestmentPortfolio.class.getSimpleName()));
 
         // InvestmentPortfolio DB object
-        mDatabaseReference.child(InvestmentPortfolio.DATABASE_VALUE_TOTAL_FIELD).addListenerForSingleValueEvent(
+        getDatabaseReference().child(InvestmentPortfolio.DATABASE_VALUE_TOTAL_FIELD).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -34,12 +32,12 @@ public class DatabasePortfolio {
                             mInvestmentPortfolio.setValueTotal(aux != null ? aux.doubleValue() : 0);
                             Log.d(TAG, "getTotal - getValue from DB: " + mInvestmentPortfolio.getValueTotal());
                         } else {
-                            String id = mDatabaseReference.push().getKey();
+                            String id = getDatabaseReference().push().getKey();
                             mInvestmentPortfolio.setValueTotal(0);
-                            mDatabaseReference.setValue(mInvestmentPortfolio);
+                            getDatabaseReference().setValue(mInvestmentPortfolio);
                             Log.d(TAG, "getTotal - onDataChange: CREATE DB OBJECT id=" + id);
                         }
-                        mDatabasePortfolioPresenter.setTotalInvestedUI(mInvestmentPortfolio.getValueTotal());
+                        mPortfolioPresenter.setTotalInvestedUI(mInvestmentPortfolio.getValueTotal());
                     }
 
                     @Override

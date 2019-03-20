@@ -17,9 +17,11 @@ import android.view.View;
 
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.ActivityMainBinding;
+import com.udacity.capstoneinvest.object.FinancialAsset;
 import com.udacity.capstoneinvest.object.InvestCategory;
-import com.udacity.capstoneinvest.presenter.DatabaseCategoryPresenterImpl;
-import com.udacity.capstoneinvest.presenter.DatabasePortfolioPresenterImpl;
+import com.udacity.capstoneinvest.presenter.CategoryPresenterImpl;
+import com.udacity.capstoneinvest.presenter.FinancialPresenterImpl;
+import com.udacity.capstoneinvest.presenter.PortfolioPresenterImpl;
 import com.udacity.capstoneinvest.view.dialog.CategoryDialogFragment;
 import com.udacity.capstoneinvest.view.dialog.FinancialAssetDialogFragment;
 
@@ -28,8 +30,9 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = MainActivity.class.getName();
     private ActivityMainBinding mActivityMainBinding;
-    private DatabasePortfolioPresenterImpl mDatabasePortfolioPresenterImpl;
-    private DatabaseCategoryPresenterImpl mDatabaseCategoryPresenterImpl;
+    private PortfolioPresenterImpl mPortfolioPresenterImpl;
+    private CategoryPresenterImpl mCategoryPresenterImpl;
+    private FinancialPresenterImpl mFinancialPresenterImpl;
     private Fragment mCurrentFragment;
     private InvestCategoryFragment mInvestCategoryFragment;
     private FinancialAssetFragment mFinancialAssetFragment;
@@ -142,14 +145,27 @@ public class MainActivity extends AppCompatActivity
 
     public void callBackInvestCategoryDialog(String categoryType){
         Log.d(TAG, "callBackInvestCategoryDialog: " + categoryType);
-        mDatabaseCategoryPresenterImpl.addCategory(new InvestCategory(categoryType));
+        mCategoryPresenterImpl.addCategory(new InvestCategory(categoryType));
+    }
+
+    public void callBackFinancialAssetDialog(String name, double value, String investCategory){
+        FinancialAsset financialAsset = new FinancialAsset(name, value, investCategory);
+        Log.d(TAG, "callBackFinancialAssetDialog: " + financialAsset.toString());
+        mFinancialPresenterImpl.addFinancialAsset(financialAsset);
     }
 
     private void setupPresenter(){
-        if(mCurrentFragment instanceof InvestCategoryFragment){
-            mDatabasePortfolioPresenterImpl = new DatabasePortfolioPresenterImpl(this);
-            mDatabaseCategoryPresenterImpl = new DatabaseCategoryPresenterImpl(this);
-        }
+//        if(mCurrentFragment instanceof InvestCategoryFragment){
+            mPortfolioPresenterImpl = new PortfolioPresenterImpl(this);
+            mCategoryPresenterImpl = new CategoryPresenterImpl(this);
+//        } else if(mCurrentFragment instanceof FinancialAssetFragment){
+            mFinancialPresenterImpl = new FinancialPresenterImpl(this);
+//        }
+    }
+
+    @Override
+    public FinancialAssetUI getFinancialAssetUi() {
+        return getFinancialAssetFragment();
     }
 
     @Override
@@ -162,8 +178,8 @@ public class MainActivity extends AppCompatActivity
         return getInvestCategoryFragment();
     }
 
-    public DatabaseCategoryPresenterImpl getDatabaseCategoryPresenter(){
-        return mDatabaseCategoryPresenterImpl;
+    public CategoryPresenterImpl getDatabaseCategoryPresenter(){
+        return mCategoryPresenterImpl;
     }
     //endregion
 

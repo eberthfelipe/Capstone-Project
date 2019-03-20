@@ -1,13 +1,14 @@
 package com.udacity.capstoneinvest.view;
 
-import com.udacity.capstoneinvest.presenter.DatabaseCategoryPresenterImpl;
+import com.udacity.capstoneinvest.presenter.CategoryPresenterImpl;
 
 public interface ManagerUI {
 
     // UI
-    InvestCategoryUI getInvestCategoryUi();
     InvestmentPortfolioUI getInvestmentPortfolioUi();
+    InvestCategoryUI getInvestCategoryUi();
+    FinancialAssetUI getFinancialAssetUi();
 
     // Presenter
-    DatabaseCategoryPresenterImpl getDatabaseCategoryPresenter();
+    CategoryPresenterImpl getDatabaseCategoryPresenter();
 }

@@ -19,8 +19,6 @@ import com.udacity.capstoneinvest.view.MainActivity;
 
 import java.util.ArrayList;
 
-import static android.R.layout.simple_spinner_dropdown_item;
-
 public class FinancialAssetDialogFragment extends DialogFragment
         implements com.udacity.capstoneinvest.view.dialog.DialogFragment {
 
@@ -30,7 +28,7 @@ public class FinancialAssetDialogFragment extends DialogFragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mDialogFinancialAssetBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_financial_asset, container, false);
-        mDialogFinancialAssetBinding.spFinancialAsset.setAdapter(new ArrayAdapter<>(getActivity(), simple_spinner_dropdown_item, getInvestCategoryItems()));
+        mDialogFinancialAssetBinding.spFinancialAsset.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getInvestCategoryItems()));
         mDialogFinancialAssetBinding.viewButtonsCreateCancel.btDialogCreateCategory.setOnClickListener(getPositiveDialogClick());
         mDialogFinancialAssetBinding.viewButtonsCreateCancel.btDialogCancelCategory.setOnClickListener(getNegativeDialogClick());
         return mDialogFinancialAssetBinding.getRoot();
@@ -49,7 +47,7 @@ public class FinancialAssetDialogFragment extends DialogFragment
                     if(value <= 0) {
                         showToast(getString(R.string.warning_financial_asset_value));
                     } else {
-                        showToast(String.format("FUNFOU: \n %s \n %s \n %s",name, valueTxt, investCategory));
+                        ((MainActivity)getActivity()).callBackFinancialAssetDialog(name, value, investCategory);
                         dismiss();
                     }
                 }

@@ -4,17 +4,16 @@ import android.support.annotation.NonNull;
 
 import com.udacity.capstoneinvest.data.DatabaseCategory;
 import com.udacity.capstoneinvest.object.InvestCategory;
-import com.udacity.capstoneinvest.view.InvestCategoryUI;
 import com.udacity.capstoneinvest.view.ManagerUI;
 
 import java.util.ArrayList;
 
-public class DatabaseCategoryPresenterImpl implements DatabaseCategoryPresenter{
+public class CategoryPresenterImpl implements CategoryPresenter {
 
     private DatabaseCategory mDatabaseCategory;
     private ManagerUI mManagerUI;
 
-    public DatabaseCategoryPresenterImpl(ManagerUI managerUI) {
+    public CategoryPresenterImpl(ManagerUI managerUI) {
         this.mManagerUI = managerUI;
         this.mDatabaseCategory = new DatabaseCategory(this);
     }
