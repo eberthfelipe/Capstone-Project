@@ -31,4 +31,7 @@
     <string name="empty_category">Empty category!</string>
     <string name="fill_all_fields">Fill all fields!</string>
     <string name="warning_financial_asset_value">Financial Asset must have value greater than 0</string>
+    <string name="amount">amount</string>
+    <string name="bid">Bid</string>
+    <string name="purchase">Purchase</string>
 </resources>

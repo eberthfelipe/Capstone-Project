@@ -16,7 +16,7 @@
         android:layout_margin="@dimen/margin_default"
         app:cardElevation="@dimen/margin_default"
         android:elevation="@dimen/margin_default"
-        android:id="@+id/cv_category_view_content"
+        android:id="@+id/cv_financial_asset_view_holder"
         >
 
         <android.support.constraint.ConstraintLayout
