@@ -30,6 +30,7 @@
                 android:layout_marginTop="@dimen/margin_default"
                 android:text="@{investCategory.type}"
                 android:textSize="@dimen/dimen_main_view"
+                android:textColor="@color/colorPrimaryText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,8 +40,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_default"
                 android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginBottom="8dp"
                 android:text="@string/weight"
-                android:textSize="@dimen/dimen_main_view"
+                android:textSize="@dimen/dimen_asset_category"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_invest_category_type" />
 
@@ -51,26 +54,25 @@
                 android:layout_marginStart="@dimen/margin_default"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginEnd="@dimen/margin_default"
-                android:progress="@{investCategory.weight}"
+                android:layout_marginBottom="8dp"
                 android:max="100"
+                android:progress="@{investCategory.weight}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_invest_category_weight"
-                app:layout_constraintTop_toBottomOf="@+id/tv_invest_category_type"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/tv_invest_category_type" />
 
             <TextView
                 android:id="@+id/tv_invest_category_weight_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_default"
-                android:layout_marginTop="@dimen/margin_default"
-                android:layout_marginBottom="@dimen/margin_default"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@{String.valueOf(investCategory.weight)}"
                 android:textSize="@dimen/dialog_text"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/sb_invest_category_weight"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_invest_category_weight"
-                app:layout_constraintTop_toBottomOf="@+id/sb_invest_category_weight" />
+                app:layout_constraintStart_toStartOf="@+id/sb_invest_category_weight" />
         </android.support.constraint.ConstraintLayout>
 
 
