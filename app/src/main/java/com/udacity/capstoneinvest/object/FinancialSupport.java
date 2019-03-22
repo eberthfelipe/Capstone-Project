@@ -1,12 +1,14 @@
 package com.udacity.capstoneinvest.object;
 
+import java.util.ArrayList;
+
 /**
  *  class: Represents the abstraction of financial support (investments cycle)
  */
 public class FinancialSupport {
 
     private String id;
-    private AssetSupport[] assetSupports;
+    private ArrayList<AssetSupport> assetSupports;
     private double valueSupport;
     //Active cycle will receive true, past cycle will receive false
     private boolean state;
@@ -23,11 +25,11 @@ public class FinancialSupport {
         this.id = id;
     }
 
-    public AssetSupport[] getAssetSupports() {
+    public ArrayList<AssetSupport> getAssetSupports() {
         return assetSupports;
     }
 
-    public void setAssetSupports(AssetSupport[] assetSupports) {
+    public void setAssetSupports(ArrayList<AssetSupport> assetSupports) {
         this.assetSupports = assetSupports;
     }
 
