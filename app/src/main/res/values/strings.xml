@@ -9,6 +9,8 @@
     <string name="settings">Settings</string>
     <string name="investment_category">Investment Category</string>
     <string name="financial_assets">Financial Assets</string>
+    <string name="financial_support">Financial Support</string>
+    <string name="financial_support_hint">Inform the value of your support</string>
     <string name="create_category">Create Category:</string>
     <string name="create_financial_asset">Create Financial Asset:</string>
     <string name="dialog_create">Create</string>
@@ -25,6 +27,7 @@
     <string name="money">R$:</string>
     <string name="categories_when_have_none">Please, create categories for your investments!</string>
     <string name="financial_asset_when_have_none">Please, create financial assets for your investments!</string>
+    <string name="financial_support_when_have_none">No financial support active. Please, add new one!</string>
     <string name="weight">Weight:</string>
     <string name="update_weight">Update weight</string>
     <string name="warning_max_weight">The maximum value of all weight must be 100!</string>
@@ -34,4 +37,5 @@
     <string name="amount">amount</string>
     <string name="bid">Bid</string>
     <string name="purchase">Purchase</string>
+    <string name="close_financial_support">Close Support</string>
 </resources>

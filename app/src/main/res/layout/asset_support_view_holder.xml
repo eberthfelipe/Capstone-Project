@@ -114,7 +114,7 @@
                 android:textSize="@dimen/dimen_asset_category"
                 app:layout_constraintStart_toEndOf="@+id/tv_asset_support_weight"
                 app:layout_constraintTop_toTopOf="@+id/divider_asset_support"
-                android:text="@{assetSupport.weight}"
+                android:text="@{String.valueOf(assetSupport.weight)}"
                 />
 
             <TextView
@@ -126,7 +126,7 @@
                 android:textSize="@dimen/dimen_asset_category"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/divider_asset_support"
-                android:text="@{assetSupport.amount}"
+                android:text="@{String.valueOf(assetSupport.amount)}"
                 />
 
             <TextView
