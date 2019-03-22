@@ -25,7 +25,7 @@ public class FinancialSupportFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mAssetSupportViewContentBinding = DataBindingUtil.inflate(inflater, R.layout.financial_asset_view_content, container, false);
+        mAssetSupportViewContentBinding = DataBindingUtil.inflate(inflater, R.layout.asset_support_view_content, container, false);
 
         mAssetSupportViewContentBinding.setHasFinancialSupport(false);
 
@@ -34,7 +34,7 @@ public class FinancialSupportFragment extends Fragment
 
     //region FinancialAssetUI
     @Override
-    public void setFinancialAssetUI(FinancialSupport financialSupport) {
+    public void setFinancialSupportUI(FinancialSupport financialSupport) {
         if(financialSupport == null){
             mAssetSupportViewContentBinding.setHasFinancialSupport(false);
         } else {

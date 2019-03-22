@@ -1,5 +1,9 @@
 package com.udacity.capstoneinvest.object;
 
+import android.support.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
 
 /**
@@ -7,6 +11,10 @@ import java.util.ArrayList;
  */
 public class FinancialSupport {
 
+    public static final String DATABASE_ID_FIELD = "id";
+    public static final String DATABASE_ASSET_SUPPORT_FIELD = "assetSupport";
+    public static final String DATABASE_VALUE_SUPPORT_FIELD = "valueSupport";
+    public static final String DATABASE_STATE_FIELD = "state";
     private String id;
     private ArrayList<AssetSupport> assetSupports;
     private double valueSupport;
@@ -15,6 +23,24 @@ public class FinancialSupport {
 
     public FinancialSupport() {
         //TODO 1: get ID from database and create assetSupports array based on last cycle
+    }
+
+    public FinancialSupport(DataSnapshot dataSnapshot) {
+        this.id = dataSnapshot.child(DATABASE_ID_FIELD).getValue(String.class);
+        this.assetSupports = (ArrayList<AssetSupport>) dataSnapshot.child(DATABASE_ASSET_SUPPORT_FIELD).getValue();
+        this.valueSupport = dataSnapshot.child(DATABASE_VALUE_SUPPORT_FIELD).getValue(Double.class);
+        this.state = dataSnapshot.child(DATABASE_STATE_FIELD).getValue(Boolean.class);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "FinancialSupport{" +
+                "id='" + id + '\'' +
+                ", assetSupports=" + assetSupports +
+                ", valueSupport=" + valueSupport +
+                ", state=" + state +
+                '}';
     }
 
     public String getId() {

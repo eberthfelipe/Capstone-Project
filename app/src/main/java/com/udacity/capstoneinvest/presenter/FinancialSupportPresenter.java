@@ -1,9 +1,8 @@
-package com.udacity.capstoneinvest.view;
+package com.udacity.capstoneinvest.presenter;
 
 import com.udacity.capstoneinvest.object.FinancialSupport;
 
-public interface FinancialSupportUI {
+public interface FinancialSupportPresenter {
 
     void setFinancialSupportUI(FinancialSupport financialSupport);
-
 }

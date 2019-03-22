@@ -9,9 +9,9 @@ import com.google.firebase.database.DataSnapshot;
  */
 public class FinancialAsset {
 
-    public static String DATABASE_NAME_FIELD = "name";
-    public static String DATABASE_VALUE_FIELD = "value";
-    public static String DATABASE_INVEST_CATEGORY_FIELD = "investCategory";
+    public static final String DATABASE_NAME_FIELD = "name";
+    public static final String DATABASE_VALUE_FIELD = "value";
+    public static final String DATABASE_INVEST_CATEGORY_FIELD = "investCategory";
     private String name;
     private double value;
     // Reference must be InvestCategory class

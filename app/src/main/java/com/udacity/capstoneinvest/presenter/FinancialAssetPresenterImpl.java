@@ -8,12 +8,12 @@ import com.udacity.capstoneinvest.view.ManagerUI;
 
 import java.util.ArrayList;
 
-public class FinancialPresenterImpl implements FinancialAssetPresenter{
+public class FinancialAssetPresenterImpl implements FinancialAssetPresenter{
 
     private DatabaseFinancialAsset mDatabaseFinancialAsset;
     private ManagerUI mManagerUI;
 
-    public FinancialPresenterImpl(ManagerUI mManagerUI) {
+    public FinancialAssetPresenterImpl(ManagerUI mManagerUI) {
         this.mManagerUI = mManagerUI;
         mDatabaseFinancialAsset = new DatabaseFinancialAsset(this);
     }

@@ -8,6 +8,7 @@ public interface ManagerUI {
     InvestmentPortfolioUI getInvestmentPortfolioUi();
     InvestCategoryUI getInvestCategoryUi();
     FinancialAssetUI getFinancialAssetUi();
+    FinancialSupportUI getFinancialSupportUi();
 
     // Presenter
     CategoryPresenterImpl getDatabaseCategoryPresenter();

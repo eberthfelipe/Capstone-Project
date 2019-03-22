@@ -20,7 +20,7 @@ import com.udacity.capstoneinvest.databinding.ActivityMainBinding;
 import com.udacity.capstoneinvest.object.FinancialAsset;
 import com.udacity.capstoneinvest.object.InvestCategory;
 import com.udacity.capstoneinvest.presenter.CategoryPresenterImpl;
-import com.udacity.capstoneinvest.presenter.FinancialPresenterImpl;
+import com.udacity.capstoneinvest.presenter.FinancialAssetPresenterImpl;
 import com.udacity.capstoneinvest.presenter.PortfolioPresenterImpl;
 import com.udacity.capstoneinvest.view.dialog.CategoryDialogFragment;
 import com.udacity.capstoneinvest.view.dialog.FinancialAssetDialogFragment;
@@ -32,10 +32,11 @@ public class MainActivity extends AppCompatActivity
     private ActivityMainBinding mActivityMainBinding;
     private PortfolioPresenterImpl mPortfolioPresenterImpl;
     private CategoryPresenterImpl mCategoryPresenterImpl;
-    private FinancialPresenterImpl mFinancialPresenterImpl;
+    private FinancialAssetPresenterImpl mFinancialAssetPresenterImpl;
     private Fragment mCurrentFragment;
     private InvestCategoryFragment mInvestCategoryFragment;
     private FinancialAssetFragment mFinancialAssetFragment;
+    private FinancialSupportFragment mFinancialSupportFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +138,10 @@ public class MainActivity extends AppCompatActivity
                 if(!(mCurrentFragment instanceof FinancialAssetFragment)){
                     setCurrentFragment(getFinancialAssetFragment());
                 }
+            case R.id.nav_financial_support:
+                if(!(mCurrentFragment instanceof FinancialSupportFragment)){
+                    setCurrentFragment(getFinancialSupportFragment());
+                }
                 break;
         }
     }
@@ -151,7 +156,7 @@ public class MainActivity extends AppCompatActivity
     public void callBackFinancialAssetDialog(String name, double value, String investCategory){
         FinancialAsset financialAsset = new FinancialAsset(name, value, investCategory);
         Log.d(TAG, "callBackFinancialAssetDialog: " + financialAsset.toString());
-        mFinancialPresenterImpl.addFinancialAsset(financialAsset);
+        mFinancialAssetPresenterImpl.addFinancialAsset(financialAsset);
     }
 
     private void setupPresenter(){
@@ -159,13 +164,18 @@ public class MainActivity extends AppCompatActivity
             mPortfolioPresenterImpl = new PortfolioPresenterImpl(this);
             mCategoryPresenterImpl = new CategoryPresenterImpl(this);
         } else if(mCurrentFragment instanceof FinancialAssetFragment){
-            mFinancialPresenterImpl = new FinancialPresenterImpl(this);
+            mFinancialAssetPresenterImpl = new FinancialAssetPresenterImpl(this);
         }
     }
 
     @Override
     public FinancialAssetUI getFinancialAssetUi() {
         return getFinancialAssetFragment();
+    }
+
+    @Override
+    public FinancialSupportUI getFinancialSupportUi() {
+        return getFinancialSupportFragment();
     }
 
     @Override
@@ -202,6 +212,12 @@ public class MainActivity extends AppCompatActivity
         if(mFinancialAssetFragment == null)
             mFinancialAssetFragment = new FinancialAssetFragment();
         return mFinancialAssetFragment;
+    }
+
+    private FinancialSupportFragment getFinancialSupportFragment(){
+        if(mFinancialSupportFragment == null)
+            mFinancialSupportFragment = new FinancialSupportFragment();
+        return mFinancialSupportFragment;
     }
 
     //endregion
