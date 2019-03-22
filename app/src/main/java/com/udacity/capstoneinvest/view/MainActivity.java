@@ -21,9 +21,12 @@ import com.udacity.capstoneinvest.object.FinancialAsset;
 import com.udacity.capstoneinvest.object.InvestCategory;
 import com.udacity.capstoneinvest.presenter.CategoryPresenterImpl;
 import com.udacity.capstoneinvest.presenter.FinancialAssetPresenterImpl;
+import com.udacity.capstoneinvest.presenter.FinancialSupportPresenterImpl;
 import com.udacity.capstoneinvest.presenter.PortfolioPresenterImpl;
 import com.udacity.capstoneinvest.view.dialog.CategoryDialogFragment;
 import com.udacity.capstoneinvest.view.dialog.FinancialAssetDialogFragment;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ManagerUI {
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private PortfolioPresenterImpl mPortfolioPresenterImpl;
     private CategoryPresenterImpl mCategoryPresenterImpl;
     private FinancialAssetPresenterImpl mFinancialAssetPresenterImpl;
+    private FinancialSupportPresenterImpl mFinancialSupportPresenterImpl;
     private Fragment mCurrentFragment;
     private InvestCategoryFragment mInvestCategoryFragment;
     private FinancialAssetFragment mFinancialAssetFragment;
@@ -115,15 +119,24 @@ public class MainActivity extends AppCompatActivity
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialogFragment = null;
+                DialogFragment dialogFragment;
                 if(mCurrentFragment instanceof InvestCategoryFragment){
                     dialogFragment = new CategoryDialogFragment();
+                    dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
                 } else if (mCurrentFragment instanceof FinancialAssetFragment){
                     dialogFragment = new FinancialAssetDialogFragment();
+                    dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
+                } else if(mCurrentFragment instanceof FinancialSupportFragment){
+                    //TODO validate if there is no active cycle
+                    createInvestmentCycle(mCategoryPresenterImpl.getInvestCategories(), mFinancialAssetPresenterImpl.getFinancialAssets());
                 }
-                dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
             }
         };
+    }
+
+    private void createInvestmentCycle(ArrayList<InvestCategory> investCategories, ArrayList<FinancialAsset> financialAssets) {
+        // TODO get value of support
+        mFinancialSupportPresenterImpl.createFinancialSupport(investCategories, financialAssets,1000);
     }
 
     public void handleNavigationClickItem(int id){
@@ -165,6 +178,8 @@ public class MainActivity extends AppCompatActivity
             mCategoryPresenterImpl = new CategoryPresenterImpl(this);
         } else if(mCurrentFragment instanceof FinancialAssetFragment){
             mFinancialAssetPresenterImpl = new FinancialAssetPresenterImpl(this);
+        } else if(mCurrentFragment instanceof FinancialSupportFragment){
+            mFinancialSupportPresenterImpl = new FinancialSupportPresenterImpl(this);
         }
     }
 

@@ -49,4 +49,8 @@ public class DatabaseFinancialAsset extends Database{
         child.setValue(financialAsset);
         mFinancialAssets.add(financialAsset);
     }
+
+    public ArrayList<FinancialAsset> getFinancialAssets(){
+        return mFinancialAssets;
+    }
 }

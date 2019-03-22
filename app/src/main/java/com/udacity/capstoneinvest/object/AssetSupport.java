@@ -1,5 +1,7 @@
 package com.udacity.capstoneinvest.object;
 
+import android.support.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
 
 /**
@@ -9,7 +11,7 @@ public class AssetSupport extends FinancialAsset{
 
     private double amount;
     private double weight;
-    private boolean state;
+    private int state;
 
     public AssetSupport(String name, double value, String investCategory) {
         super(name, value, investCategory);
@@ -17,6 +19,20 @@ public class AssetSupport extends FinancialAsset{
 
     public AssetSupport(DataSnapshot dataSnapshot) {
         super(dataSnapshot);
+    }
+
+    public AssetSupport(FinancialAsset financialAsset) {
+        this(financialAsset.getName(), financialAsset.getValue(), financialAsset.getInvestCategory());
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "AssetSupport{" +
+                "amount=" + amount +
+                ", weight=" + weight +
+                ", state=" + state +
+                '}' + super.toString();
     }
 
     public double getAmount() {
@@ -27,11 +43,11 @@ public class AssetSupport extends FinancialAsset{
         this.amount = amount;
     }
 
-    public boolean isState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(boolean state) {
+    public void setState(int state) {
         this.state = state;
     }
 

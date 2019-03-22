@@ -23,6 +23,11 @@ public class FinancialAssetPresenterImpl implements FinancialAssetPresenter{
         mManagerUI.getFinancialAssetUi().setFinancialAssetUI(financialAssets);
     }
 
+    @Override
+    public ArrayList<FinancialAsset> getFinancialAssets() {
+        return mDatabaseFinancialAsset.getFinancialAssets();
+    }
+
     public void addFinancialAsset(@NonNull FinancialAsset financialAsset){
         mDatabaseFinancialAsset.addFinancialAsset(financialAsset);
     }

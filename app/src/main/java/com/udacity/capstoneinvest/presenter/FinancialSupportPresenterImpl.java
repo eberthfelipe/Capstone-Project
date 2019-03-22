@@ -3,8 +3,13 @@ package com.udacity.capstoneinvest.presenter;
 import android.support.annotation.NonNull;
 
 import com.udacity.capstoneinvest.data.DatabaseFinancialSupport;
+import com.udacity.capstoneinvest.object.FinancialAsset;
 import com.udacity.capstoneinvest.object.FinancialSupport;
+import com.udacity.capstoneinvest.object.InvestCategory;
+import com.udacity.capstoneinvest.task.FinancialCycleTask;
 import com.udacity.capstoneinvest.view.ManagerUI;
+
+import java.util.ArrayList;
 
 public class FinancialSupportPresenterImpl implements FinancialSupportPresenter {
 
@@ -21,7 +26,17 @@ public class FinancialSupportPresenterImpl implements FinancialSupportPresenter 
         mManagerUI.getFinancialSupportUi().setFinancialSupportUI(financialSupport);
     }
 
-    public void createFinancialSupport(@NonNull FinancialSupport financialSupport){
+    @Override
+    public void createFinancialSupport(@NonNull ArrayList<InvestCategory> investCategories,
+                                       @NonNull ArrayList<FinancialAsset> financialAssets,
+                                       double valueSupport) {
+        FinancialCycleTask financialCycleTask = new FinancialCycleTask(this,
+                investCategories, financialAssets, valueSupport);
+        financialCycleTask.execute();
+    }
+
+    @Override
+    public void saveFinancialSupport(FinancialSupport financialSupport) {
         mDatabaseFinancialSupport.createFinancialSupport(financialSupport);
     }
 }
