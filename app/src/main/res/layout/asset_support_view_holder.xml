@@ -78,7 +78,12 @@
                 app:layout_constraintBottom_toTopOf="@+id/divider_asset_support"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:targetApi="o" />
+                tools:targetApi="o"
+                android:focusable="false"
+                android:clickable="false"
+                android:focusableInTouchMode="false"
+                android:cursorVisible="false"
+                />
 
             <View
                 android:id="@+id/divider_asset_support"

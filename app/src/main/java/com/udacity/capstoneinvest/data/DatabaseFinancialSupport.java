@@ -22,7 +22,8 @@ public class DatabaseFinancialSupport extends Database {
         this.mFinancialSupportPresenter = financialSupportPresenter;
         setDatabaseReference(FirebaseDatabase.getInstance().getReference(InvestmentPortfolio.class.getSimpleName())
                 .child(FinancialSupport.class.getSimpleName())
-                .orderByValue().getRef());
+                .orderByValue()
+                .getRef());
         getDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -30,8 +31,11 @@ public class DatabaseFinancialSupport extends Database {
                     Log.d(TAG, "child value: "+ String.valueOf(dataSnapshot.getValue()));
                     mFinancialSupport = new FinancialSupport(dataSnapshot);
                 }
-                mFinancialSupportPresenter.setFinancialSupportUI(mFinancialSupport);
-
+                if(mFinancialSupport.isState()){
+                    mFinancialSupportPresenter.setFinancialSupportUI(mFinancialSupport);
+                } else {
+                    mFinancialSupportPresenter.setFinancialSupportUI(null);
+                }
             }
 
             @Override
