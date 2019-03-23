@@ -24,8 +24,8 @@ public class DatabaseFinancialSupport extends Database {
         getDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mFinancialSupport = new FinancialSupport();
                 if(dataSnapshot.exists()){
+                    mFinancialSupport = new FinancialSupport();
                     for (DataSnapshot child: dataSnapshot.getChildren()) {
                         Log.d(TAG, "child value: "+ String.valueOf(child.getValue()));
                         mFinancialSupport = new FinancialSupport(child);
@@ -42,9 +42,9 @@ public class DatabaseFinancialSupport extends Database {
         });
     }
 
-    public void createFinancialSupport(FinancialSupport financialSupport){
+    public void saveFinancialSupport(FinancialSupport financialSupport){
         DatabaseReference child = getDatabaseReference();
-        Log.d(TAG, "addFinancialAsset: " + financialSupport.toString());
+        Log.d(TAG, "saveFinancialSupport: " + financialSupport.toString());
         child.setValue(financialSupport);
         mFinancialSupport = financialSupport;
     }

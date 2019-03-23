@@ -25,8 +25,7 @@ import com.udacity.capstoneinvest.presenter.FinancialSupportPresenterImpl;
 import com.udacity.capstoneinvest.presenter.PortfolioPresenterImpl;
 import com.udacity.capstoneinvest.view.dialog.CategoryDialogFragment;
 import com.udacity.capstoneinvest.view.dialog.FinancialAssetDialogFragment;
-
-import java.util.ArrayList;
+import com.udacity.capstoneinvest.view.dialog.FinancialSupportDialogFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ManagerUI {
@@ -111,32 +110,27 @@ public class MainActivity extends AppCompatActivity
         mActivityMainBinding.navView.setNavigationItemSelectedListener(this);
         //TODO save current fragment
         mActivityMainBinding.navView.setCheckedItem(R.id.nav_account_balance);
-        setCurrentFragment(getInvestCategoryFragment());
+        setupFragments();
         setupPresenter();
+        setCurrentFragment(getInvestCategoryFragment());
     }
 
     public View.OnClickListener handleFabClick(){
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialogFragment;
+                DialogFragment dialogFragment = null;
                 if(mCurrentFragment instanceof InvestCategoryFragment){
                     dialogFragment = new CategoryDialogFragment();
                     dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
                 } else if (mCurrentFragment instanceof FinancialAssetFragment){
                     dialogFragment = new FinancialAssetDialogFragment();
-                    dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
                 } else if(mCurrentFragment instanceof FinancialSupportFragment){
-                    //TODO validate if there is no active cycle
-                    createInvestmentCycle(mCategoryPresenterImpl.getInvestCategories(), mFinancialAssetPresenterImpl.getFinancialAssets());
+                    dialogFragment = new FinancialSupportDialogFragment();
                 }
+                dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
             }
         };
-    }
-
-    private void createInvestmentCycle(ArrayList<InvestCategory> investCategories, ArrayList<FinancialAsset> financialAssets) {
-        // TODO get value of support
-        mFinancialSupportPresenterImpl.createFinancialSupport(investCategories, financialAssets,1000);
     }
 
     public void handleNavigationClickItem(int id){
@@ -151,6 +145,7 @@ public class MainActivity extends AppCompatActivity
                 if(!(mCurrentFragment instanceof FinancialAssetFragment)){
                     setCurrentFragment(getFinancialAssetFragment());
                 }
+                break;
             case R.id.nav_financial_support:
                 if(!(mCurrentFragment instanceof FinancialSupportFragment)){
                     setCurrentFragment(getFinancialSupportFragment());
@@ -172,15 +167,26 @@ public class MainActivity extends AppCompatActivity
         mFinancialAssetPresenterImpl.addFinancialAsset(financialAsset);
     }
 
+    public void callBackFinancialSupportDialog(double value) {
+        Log.d(TAG, "callBackFinancialSupportDialog: " + value);
+        mFinancialSupportPresenterImpl.createFinancialSupport(mCategoryPresenterImpl.getInvestCategories(),
+                mFinancialAssetPresenterImpl.getFinancialAssets(),
+                value);
+    }
+
     private void setupPresenter(){
-        if(mCurrentFragment instanceof InvestCategoryFragment){
-            mPortfolioPresenterImpl = new PortfolioPresenterImpl(this);
-            mCategoryPresenterImpl = new CategoryPresenterImpl(this);
-        } else if(mCurrentFragment instanceof FinancialAssetFragment){
-            mFinancialAssetPresenterImpl = new FinancialAssetPresenterImpl(this);
-        } else if(mCurrentFragment instanceof FinancialSupportFragment){
-            mFinancialSupportPresenterImpl = new FinancialSupportPresenterImpl(this);
-        }
+//        if(mCurrentFragment instanceof InvestCategoryFragment){
+//            mPortfolioPresenterImpl = new PortfolioPresenterImpl(this);
+//            mCategoryPresenterImpl = new CategoryPresenterImpl(this);
+//        } else if(mCurrentFragment instanceof FinancialAssetFragment){
+//            mFinancialAssetPresenterImpl = new FinancialAssetPresenterImpl(this);
+//        } else if(mCurrentFragment instanceof FinancialSupportFragment){
+//            mFinancialSupportPresenterImpl = new FinancialSupportPresenterImpl(this);
+//        }
+        mPortfolioPresenterImpl = new PortfolioPresenterImpl(this);
+        mCategoryPresenterImpl = new CategoryPresenterImpl(this);
+        mFinancialAssetPresenterImpl = new FinancialAssetPresenterImpl(this);
+        mFinancialSupportPresenterImpl = new FinancialSupportPresenterImpl(this);
     }
 
     @Override
@@ -235,6 +241,11 @@ public class MainActivity extends AppCompatActivity
         return mFinancialSupportFragment;
     }
 
+    private void setupFragments(){
+        getInvestCategoryFragment();
+        getFinancialAssetFragment();
+        getFinancialSupportFragment();
+    }
     //endregion
 
 }

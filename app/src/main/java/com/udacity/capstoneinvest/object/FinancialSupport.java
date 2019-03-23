@@ -32,6 +32,13 @@ public class FinancialSupport {
         this.state = dataSnapshot.child(DATABASE_STATE_FIELD).getValue(Boolean.class);
     }
 
+    public FinancialSupport(FinancialSupport financialSupport) {
+        this.id = financialSupport.id;
+        this.assetSupports = financialSupport.assetSupports;
+        this.valueSupport = financialSupport.valueSupport;
+        this.state = financialSupport.state;
+    }
+
     @NonNull
     @Override
     public String toString() {

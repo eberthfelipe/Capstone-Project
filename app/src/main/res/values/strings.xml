@@ -13,6 +13,7 @@
     <string name="financial_support_hint">Inform the value of your support</string>
     <string name="create_category">Create Category:</string>
     <string name="create_financial_asset">Create Financial Asset:</string>
+    <string name="create_financial_support_cycle">Create Financial Support Cycle:</string>
     <string name="dialog_create">Create</string>
     <string name="dialog_investment_category">New Investment Category</string>
     <string name="cancel">Cancel</string>
@@ -33,7 +34,8 @@
     <string name="warning_max_weight">The maximum value of all weight must be 100!</string>
     <string name="empty_category">Empty category!</string>
     <string name="fill_all_fields">Fill all fields!</string>
-    <string name="warning_financial_asset_value">Financial Asset must have value greater than 0</string>
+    <string name="warning_financial_asset_value">Financial Asset must have value greater than 0!</string>
+    <string name="warning_financial_support_value">Financial Support must have value greater than 0!</string>
     <string name="amount">amount</string>
     <string name="bid">Bid</string>
     <string name="purchase">Purchase</string>

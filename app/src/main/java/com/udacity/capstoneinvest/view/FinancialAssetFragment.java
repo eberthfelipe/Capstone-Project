@@ -20,6 +20,7 @@ public class FinancialAssetFragment extends Fragment
 
     private static final String TAG = FinancialAssetFragment.class.getName();
     private FinancialAssetViewContentBinding mFinancialAssetViewContentBinding;
+    private ArrayList<FinancialAsset> mFinancialAssets;
 
     public FinancialAssetFragment() {
     }
@@ -29,7 +30,7 @@ public class FinancialAssetFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mFinancialAssetViewContentBinding = DataBindingUtil.inflate(inflater, R.layout.financial_asset_view_content, container, false);
 
-        mFinancialAssetViewContentBinding.setHasFinancialAsset(false);
+        updateUI();
 
         return mFinancialAssetViewContentBinding.getRoot();
     }
@@ -38,11 +39,20 @@ public class FinancialAssetFragment extends Fragment
 
     @Override
     public void setFinancialAssetUI(ArrayList<FinancialAsset> financialAssets) {
-        if(financialAssets == null){
+        if(financialAssets != null){
+            mFinancialAssets = new ArrayList<>(financialAssets);
+            if(mFinancialAssetViewContentBinding != null){
+                updateUI();
+            }
+        }
+    }
+
+    private void updateUI() {
+        if(mFinancialAssets == null){
             mFinancialAssetViewContentBinding.setHasFinancialAsset(false);
         } else {
             mFinancialAssetViewContentBinding.rvFinancialAssets
-                    .setAdapter(new FinancialAssetRecyclerView(financialAssets));
+                    .setAdapter(new FinancialAssetRecyclerView(mFinancialAssets));
             mFinancialAssetViewContentBinding.setHasFinancialAsset(true);
         }
     }

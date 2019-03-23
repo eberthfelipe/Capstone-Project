@@ -22,6 +22,8 @@ public class InvestCategoryFragment extends Fragment
 
     private static final String TAG = InvestCategoryFragment.class.getName();
     private ContentMainBinding mContentMainBinding;
+    private ArrayList<InvestCategory> mInvestCategories;
+    private double mTotal = 0;
 
 
     public InvestCategoryFragment() {
@@ -41,6 +43,9 @@ public class InvestCategoryFragment extends Fragment
         //TODO Create user preference for visibility
         mContentMainBinding.setShowTotal(true);
         mContentMainBinding.ivViewValues.setOnClickListener(viewTotalInvestedClickListener());
+
+        updateUI();
+        mContentMainBinding.setTotal(mTotal);
 
         return mContentMainBinding.getRoot();
     }
@@ -64,18 +69,29 @@ public class InvestCategoryFragment extends Fragment
     //region PortfolioPresenterImpl to access InvestmentPortfolio object
     @Override
     public void setTotalInvestedUI(double value) {
-        mContentMainBinding.setTotal(value);
+        mTotal = value;
+        if(mContentMainBinding != null)
+            mContentMainBinding.setTotal(mTotal);
     }
     //endregion
 
     //region CategoryPresenterImpl to access InvestCategory object
     @Override
     public void setInvestCategoryUI(ArrayList<InvestCategory> databaseCategories) {
-        if(databaseCategories == null){
+        if(databaseCategories != null){
+            mInvestCategories = new ArrayList<>(databaseCategories);
+            if(mContentMainBinding != null){
+                updateUI();
+            }
+        }
+    }
+
+    private void updateUI(){
+        if(mInvestCategories == null){
             mContentMainBinding.categoryViewContent.setHasCategory(false);
         } else {
             mContentMainBinding.categoryViewContent.
-                    rvCategories.setAdapter(new InvestCategoryRecyclerView(databaseCategories, this));
+                    rvCategories.setAdapter(new InvestCategoryRecyclerView(mInvestCategories, this));
             mContentMainBinding.categoryViewContent.setHasCategory(true);
         }
     }

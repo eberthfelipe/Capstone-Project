@@ -37,6 +37,6 @@ public class FinancialSupportPresenterImpl implements FinancialSupportPresenter 
 
     @Override
     public void saveFinancialSupport(FinancialSupport financialSupport) {
-        mDatabaseFinancialSupport.createFinancialSupport(financialSupport);
+        mDatabaseFinancialSupport.saveFinancialSupport(financialSupport);
     }
 }

@@ -18,6 +18,7 @@ public class FinancialSupportFragment extends Fragment
 
     private static final String TAG = FinancialSupportFragment.class.getName();
     private AssetSupportViewContentBinding mAssetSupportViewContentBinding;
+    private FinancialSupport mFinancialSupport;
 
     public FinancialSupportFragment() {
     }
@@ -27,7 +28,7 @@ public class FinancialSupportFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mAssetSupportViewContentBinding = DataBindingUtil.inflate(inflater, R.layout.asset_support_view_content, container, false);
 
-        mAssetSupportViewContentBinding.setHasFinancialSupport(false);
+        updateUI();
 
         return mAssetSupportViewContentBinding.getRoot();
     }
@@ -35,14 +36,22 @@ public class FinancialSupportFragment extends Fragment
     //region FinancialAssetUI
     @Override
     public void setFinancialSupportUI(FinancialSupport financialSupport) {
-        if(financialSupport == null){
-            mAssetSupportViewContentBinding.setHasFinancialSupport(false);
-        } else {
-            mAssetSupportViewContentBinding.rvFinancialSupport
-                    .setAdapter(new FinancialSupportRecyclerView(financialSupport.getAssetSupports(), this));
-            mAssetSupportViewContentBinding.setHasFinancialSupport(true);
+        if(financialSupport != null){
+            mFinancialSupport = new FinancialSupport(financialSupport);
+            if(mAssetSupportViewContentBinding != null){
+                updateUI();
+            }
         }
     }
 
+    private void updateUI(){
+        if(mFinancialSupport == null){
+            mAssetSupportViewContentBinding.setHasFinancialSupport(false);
+        } else {
+            mAssetSupportViewContentBinding.rvFinancialSupport
+                    .setAdapter(new FinancialSupportRecyclerView(mFinancialSupport.getAssetSupports(), this));
+            mAssetSupportViewContentBinding.setHasFinancialSupport(true);
+        }
+    }
     //endregion
 }
