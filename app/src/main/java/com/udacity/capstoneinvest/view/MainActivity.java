@@ -213,6 +213,14 @@ public class MainActivity extends AppCompatActivity
     public CategoryPresenterImpl getDatabaseCategoryPresenter(){
         return mCategoryPresenterImpl;
     }
+
+    public FinancialSupportPresenterImpl getFinancialSupportPresenter(){
+        return mFinancialSupportPresenterImpl;
+    }
+
+    public PortfolioPresenterImpl getPortfolioPresenter(){
+        return mPortfolioPresenterImpl;
+    }
     //endregion
 
     //region Fragments

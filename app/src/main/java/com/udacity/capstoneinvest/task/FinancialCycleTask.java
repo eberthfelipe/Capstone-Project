@@ -9,6 +9,7 @@ import com.udacity.capstoneinvest.object.FinancialSupport;
 import com.udacity.capstoneinvest.object.InvestCategory;
 import com.udacity.capstoneinvest.presenter.FinancialSupportPresenter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class FinancialCycleTask extends AsyncTask<Void, Void, FinancialSupport> {
@@ -84,7 +85,9 @@ public class FinancialCycleTask extends AsyncTask<Void, Void, FinancialSupport> 
         Log.d(TAG, "calculateValues categoryWeight/investCategoryCount: " + categoryWeight/investCategoryCount);
         assetSupport.setWeight(categoryWeight/investCategoryCount);
         double maxValue = mValueSupport*assetSupport.getWeight()/100;
-        assetSupport.setAmount(maxValue/assetSupport.getValue());
+        double amount = maxValue/assetSupport.getValue();
+        DecimalFormat decimal = new DecimalFormat("0.00");
+        assetSupport.setAmount(Double.parseDouble(decimal.format(amount)));
         assetSupport.setState(0);
     }
 

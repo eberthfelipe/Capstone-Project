@@ -6,5 +6,6 @@ public interface FinancialSupportUI {
 
     void setFinancialSupportUI(FinancialSupport financialSupport);
     void showProgress(boolean show);
+    void updateTotalValue(int item, int action);
 
 }

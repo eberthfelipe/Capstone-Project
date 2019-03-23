@@ -15,4 +15,11 @@ public class InvestmentPortfolio {
     public void setValueTotal(double valueTotal) {
         this.valueTotal = valueTotal;
     }
+
+    @Override
+    public String toString() {
+        return "InvestmentPortfolio{" +
+                "valueTotal=" + valueTotal +
+                '}';
+    }
 }

@@ -5,6 +5,7 @@ import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
@@ -63,7 +64,27 @@ class FinancialSupportRecyclerView extends RecyclerView.Adapter<FinancialSupport
 
         private void bind(AssetSupport assetSupport){
             viewDataBinding.setVariable(BR.assetSupport, assetSupport);
-            //TODO use variables before execute pending bindings
+            /**
+             * action : Look at AssetSupport.java
+             */
+            btPurchase.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    financialSupportUI.updateTotalValue((Integer) itemView.getTag(),1);
+                }
+            });
+            btBid.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    financialSupportUI.updateTotalValue((Integer) itemView.getTag(),2);
+                }
+            });
+            btCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    financialSupportUI.updateTotalValue((Integer) itemView.getTag(),3);
+                }
+            });
             viewDataBinding.executePendingBindings();
         }
     }

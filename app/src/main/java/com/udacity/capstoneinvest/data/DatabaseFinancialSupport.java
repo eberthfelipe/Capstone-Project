@@ -51,4 +51,38 @@ public class DatabaseFinancialSupport extends Database {
         child.setValue(financialSupport);
         mFinancialSupport = financialSupport;
     }
+
+    public void updateTotalValue(int item, int action, DatabasePortfolio databasePortfolio) {
+        switch (action){
+            case 1:
+                if(mFinancialSupport.getAssetSupports().get(item).getState()!=1 &&
+                        mFinancialSupport.getAssetSupports().get(item).getState()!=2){
+                    databasePortfolio.updateTotalPortfolio(mFinancialSupport.getAssetSupports().get(item).getValue()
+                            * mFinancialSupport.getAssetSupports().get(item).getAmount()
+                    );
+                }
+                mFinancialSupport.getAssetSupports().get(item).setState(1);
+                break;
+            case 2:
+                if(mFinancialSupport.getAssetSupports().get(item).getState()!=1 &&
+                        mFinancialSupport.getAssetSupports().get(item).getState()!=2){
+                    databasePortfolio.updateTotalPortfolio(mFinancialSupport.getAssetSupports().get(item).getValue()
+                            * mFinancialSupport.getAssetSupports().get(item).getAmount()
+                    );
+                }
+                mFinancialSupport.getAssetSupports().get(item).setState(2);
+                break;
+            case 3:
+                if(mFinancialSupport.getAssetSupports().get(item).getState()!=3){
+                    if(mFinancialSupport.getAssetSupports().get(item).getState()>0){
+                        databasePortfolio.updateTotalPortfolio(-(mFinancialSupport.getAssetSupports().get(item).getValue()
+                                * mFinancialSupport.getAssetSupports().get(item).getAmount())
+                        );
+                    }
+                    mFinancialSupport.getAssetSupports().get(item).setState(3);
+                }
+                break;
+        }
+        getDatabaseReference().setValue(mFinancialSupport);
+    }
 }

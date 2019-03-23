@@ -15,6 +15,13 @@ public class AssetSupport extends FinancialAsset{
     private double amount;
     private double weight;
     private int state;
+    /**
+     * state :
+     *  0 - none
+     *  1 - purchase
+     *  2 - bid
+     *  3 - cancel
+     */
 
     public AssetSupport(String name, double value, String investCategory) {
         super(name, value, investCategory);

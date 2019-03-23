@@ -5,10 +5,13 @@ import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.udacity.capstoneinvest.object.InvestmentPortfolio;
 import com.udacity.capstoneinvest.presenter.PortfolioPresenter;
+
+import java.text.DecimalFormat;
 
 
 public class DatabasePortfolio extends Database{
@@ -28,8 +31,8 @@ public class DatabasePortfolio extends Database{
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){
-                            Long aux = (Long) dataSnapshot.getValue();
-                            mInvestmentPortfolio.setValueTotal(aux != null ? aux.doubleValue() : 0);
+                            Double aux = dataSnapshot.getValue(Double.class);
+                            mInvestmentPortfolio.setValueTotal(aux != null ? aux : 0);
                             Log.d(TAG, "getTotal - getValue from DB: " + mInvestmentPortfolio.getValueTotal());
                         } else {
                             String id = getDatabaseReference().push().getKey();
@@ -50,5 +53,14 @@ public class DatabasePortfolio extends Database{
 
     }
 
+    public void updateTotalPortfolio(double value){
+        DecimalFormat decimal = new DecimalFormat("0.00");
+        value = Double.parseDouble(decimal.format(value));
+        double aux = mInvestmentPortfolio.getValueTotal() + value;
+        mInvestmentPortfolio.setValueTotal(aux);
+        DatabaseReference child = getDatabaseReference();
+        Log.d(TAG, "updateTotalPortfolio: " + mInvestmentPortfolio.toString());
+        child.setValue(mInvestmentPortfolio);
+    }
 
 }

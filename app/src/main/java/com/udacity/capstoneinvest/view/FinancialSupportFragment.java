@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.AssetSupportViewContentBinding;
 import com.udacity.capstoneinvest.object.FinancialSupport;
+import com.udacity.capstoneinvest.presenter.FinancialSupportPresenterImpl;
+import com.udacity.capstoneinvest.presenter.PortfolioPresenterImpl;
 
 public class FinancialSupportFragment extends Fragment
         implements FinancialSupportUI {
@@ -51,6 +53,13 @@ public class FinancialSupportFragment extends Fragment
         }
     }
 
+    @Override
+    public void updateTotalValue(int item, int action) {
+        FinancialSupportPresenterImpl financialSupportPresenter = getMainActivity().getFinancialSupportPresenter();
+        PortfolioPresenterImpl portfolioPresenter = getMainActivity().getPortfolioPresenter();
+        financialSupportPresenter.updateTotalValue(item, action, portfolioPresenter.getDatabasePortfolio());
+    }
+
     private void updateUI(){
         if(mFinancialSupport == null){
             mAssetSupportViewContentBinding.setHasFinancialSupport(false);
@@ -63,4 +72,8 @@ public class FinancialSupportFragment extends Fragment
         mAssetSupportViewContentBinding.setShowProgress(false);
     }
     //endregion
+
+    public MainActivity getMainActivity(){
+        return (MainActivity) getActivity();
+    }
 }

@@ -3,6 +3,7 @@ package com.udacity.capstoneinvest.presenter;
 import android.support.annotation.NonNull;
 
 import com.udacity.capstoneinvest.data.DatabaseFinancialSupport;
+import com.udacity.capstoneinvest.data.DatabasePortfolio;
 import com.udacity.capstoneinvest.object.FinancialAsset;
 import com.udacity.capstoneinvest.object.FinancialSupport;
 import com.udacity.capstoneinvest.object.InvestCategory;
@@ -43,5 +44,9 @@ public class FinancialSupportPresenterImpl implements FinancialSupportPresenter 
     @Override
     public void saveFinancialSupport(FinancialSupport financialSupport) {
         mDatabaseFinancialSupport.saveFinancialSupport(financialSupport);
+    }
+
+    public void updateTotalValue(int item, int action, DatabasePortfolio databasePortfolio){
+        mDatabaseFinancialSupport.updateTotalValue(item, action, databasePortfolio);
     }
 }
