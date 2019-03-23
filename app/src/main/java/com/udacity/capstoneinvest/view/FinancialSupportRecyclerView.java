@@ -29,7 +29,7 @@ class FinancialSupportRecyclerView extends RecyclerView.Adapter<FinancialSupport
     @Override
     public FinancialSupportAdapter onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(layoutInflater, R.layout.category_view_holder, viewGroup, false);
+        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(layoutInflater, R.layout.asset_support_view_holder, viewGroup, false);
         return new FinancialSupportAdapter(viewDataBinding, mFinancialSupportUI);
     }
 

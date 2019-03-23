@@ -31,7 +31,7 @@ public class FinancialCycleTask extends AsyncTask<Void, Void, FinancialSupport> 
 
     @Override
     protected void onPreExecute() {
-        // TODO show loading in fragment
+        mFinancialSupportPresenter.showProgress(true);
     }
 
     @Override
@@ -39,25 +39,29 @@ public class FinancialCycleTask extends AsyncTask<Void, Void, FinancialSupport> 
         FinancialSupport financialSupport = new FinancialSupport();
         ArrayList<AssetSupport> assetSupports = new ArrayList<>();
         for (InvestCategory investCategory: mInvestCategories) {
-            int investCategoryCount = getInvestCategoryCount(investCategory.getType());
-            for(FinancialAsset financialAsset: mFinancialAssets){
-                if(isSameInvestCategory(financialAsset, investCategory.getType())){
-                    AssetSupport assetSupport = new AssetSupport(financialAsset);
-                    calculateValues(assetSupport, investCategoryCount, investCategory.getWeight());
-                    Log.d(TAG, "doInBackground create new cycle: \n" + assetSupport.toString());
-                    assetSupports.add(assetSupport);
+            if(investCategory.getWeight()>0){
+                int investCategoryCount = getInvestCategoryCount(investCategory.getType());
+                for(FinancialAsset financialAsset: mFinancialAssets){
+                    if(isSameInvestCategory(financialAsset, investCategory.getType())){
+                        AssetSupport assetSupport = new AssetSupport(financialAsset);
+                        calculateValues(assetSupport, investCategoryCount, investCategory.getWeight());
+                        Log.d(TAG, "doInBackground create new cycle: \n" + assetSupport.toString());
+                        assetSupports.add(assetSupport);
+                    }
                 }
             }
         }
         financialSupport.setAssetSupports(assetSupports);
         financialSupport.setValueSupport(mValueSupport);
         financialSupport.setState(true);
+        Log.d(TAG, "doInBackground financialSupport: \n" + financialSupport.toString());
         return financialSupport;
     }
 
     @Override
     protected void onPostExecute(FinancialSupport financialSupport) {
         mFinancialSupportPresenter.saveFinancialSupport(financialSupport);
+        mFinancialSupportPresenter.showProgress(false);
     }
 
     private int getInvestCategoryCount(String category){

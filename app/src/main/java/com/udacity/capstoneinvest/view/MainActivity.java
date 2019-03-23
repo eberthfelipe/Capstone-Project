@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity
 
     public void callBackFinancialSupportDialog(double value) {
         Log.d(TAG, "callBackFinancialSupportDialog: " + value);
+        getFinancialSupportFragment().showProgress(true);
         mFinancialSupportPresenterImpl.createFinancialSupport(mCategoryPresenterImpl.getInvestCategories(),
                 mFinancialAssetPresenterImpl.getFinancialAssets(),
                 value);

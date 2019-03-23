@@ -10,7 +10,7 @@
     <string name="investment_category">Investment Category</string>
     <string name="financial_assets">Financial Assets</string>
     <string name="financial_support">Financial Support</string>
-    <string name="financial_support_hint">Inform the value of your support</string>
+    <string name="financial_support_hint">Value of support</string>
     <string name="create_category">Create Category:</string>
     <string name="create_financial_asset">Create Financial Asset:</string>
     <string name="create_financial_support_cycle">Create Financial Support Cycle:</string>

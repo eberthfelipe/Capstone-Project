@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.udacity.capstoneinvest.object.FinancialSupport;
+import com.udacity.capstoneinvest.object.InvestmentPortfolio;
 import com.udacity.capstoneinvest.presenter.FinancialSupportPresenter;
 
 public class DatabaseFinancialSupport extends Database {
@@ -19,17 +20,15 @@ public class DatabaseFinancialSupport extends Database {
 
     public DatabaseFinancialSupport(FinancialSupportPresenter financialSupportPresenter) {
         this.mFinancialSupportPresenter = financialSupportPresenter;
-        setDatabaseReference(FirebaseDatabase.getInstance().getReference(FinancialSupport.class.getSimpleName())
+        setDatabaseReference(FirebaseDatabase.getInstance().getReference(InvestmentPortfolio.class.getSimpleName())
+                .child(FinancialSupport.class.getSimpleName())
                 .orderByValue().getRef());
         getDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    mFinancialSupport = new FinancialSupport();
-                    for (DataSnapshot child: dataSnapshot.getChildren()) {
-                        Log.d(TAG, "child value: "+ String.valueOf(child.getValue()));
-                        mFinancialSupport = new FinancialSupport(child);
-                    }
+                    Log.d(TAG, "child value: "+ String.valueOf(dataSnapshot.getValue()));
+                    mFinancialSupport = new FinancialSupport(dataSnapshot);
                 }
                 mFinancialSupportPresenter.setFinancialSupportUI(mFinancialSupport);
 

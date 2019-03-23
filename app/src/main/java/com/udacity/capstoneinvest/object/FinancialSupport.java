@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class FinancialSupport {
 
     public static final String DATABASE_ID_FIELD = "id";
-    public static final String DATABASE_ASSET_SUPPORT_FIELD = "assetSupport";
+    public static final String DATABASE_ASSET_SUPPORT_FIELD = "assetSupports";
     public static final String DATABASE_VALUE_SUPPORT_FIELD = "valueSupport";
     public static final String DATABASE_STATE_FIELD = "state";
     private String id;
@@ -27,9 +27,17 @@ public class FinancialSupport {
 
     public FinancialSupport(DataSnapshot dataSnapshot) {
         this.id = dataSnapshot.child(DATABASE_ID_FIELD).getValue(String.class);
-        this.assetSupports = (ArrayList<AssetSupport>) dataSnapshot.child(DATABASE_ASSET_SUPPORT_FIELD).getValue();
+        this.assetSupports = getArrayOfAssetSupport(dataSnapshot.child(DATABASE_ASSET_SUPPORT_FIELD));
         this.valueSupport = dataSnapshot.child(DATABASE_VALUE_SUPPORT_FIELD).getValue(Double.class);
         this.state = dataSnapshot.child(DATABASE_STATE_FIELD).getValue(Boolean.class);
+    }
+
+    private ArrayList<AssetSupport> getArrayOfAssetSupport(DataSnapshot dataSnapshot){
+        ArrayList<AssetSupport> assetSupports = new ArrayList<>();
+        for (DataSnapshot child: dataSnapshot.getChildren()) {
+            assetSupports.add(new AssetSupport(child));
+        }
+        return assetSupports;
     }
 
     public FinancialSupport(FinancialSupport financialSupport) {

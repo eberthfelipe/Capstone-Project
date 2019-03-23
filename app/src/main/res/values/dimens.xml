@@ -17,5 +17,6 @@
     <dimen name="dimen_main_view">24sp</dimen>
     <dimen name="dimen_asset_name">20sp</dimen>
     <dimen name="dimen_asset_category">16sp</dimen>
+    <dimen name="margin_top_financial_support_value">12dp</dimen>
 
 </resources>

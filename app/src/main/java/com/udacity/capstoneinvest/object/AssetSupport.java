@@ -9,6 +9,9 @@ import com.google.firebase.database.DataSnapshot;
  */
 public class AssetSupport extends FinancialAsset{
 
+    public static final String DATABASE_AMOUNT_FIELD = "amount";
+    public static final String DATABASE_WEIGHT_FIELD = "weight";
+    public static final String DATABASE_STATE_FIELD = "state";
     private double amount;
     private double weight;
     private int state;
@@ -19,6 +22,9 @@ public class AssetSupport extends FinancialAsset{
 
     public AssetSupport(DataSnapshot dataSnapshot) {
         super(dataSnapshot);
+        this.amount = dataSnapshot.child(DATABASE_AMOUNT_FIELD).getValue(Double.class);
+        this.weight = dataSnapshot.child(DATABASE_WEIGHT_FIELD).getValue(Double.class);
+        this.state = dataSnapshot.child(DATABASE_STATE_FIELD).getValue(Integer.class);
     }
 
     public AssetSupport(FinancialAsset financialAsset) {

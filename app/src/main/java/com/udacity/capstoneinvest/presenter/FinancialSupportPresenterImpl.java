@@ -27,6 +27,11 @@ public class FinancialSupportPresenterImpl implements FinancialSupportPresenter 
     }
 
     @Override
+    public void showProgress(boolean show) {
+        mManagerUI.getFinancialSupportUi().showProgress(show);
+    }
+
+    @Override
     public void createFinancialSupport(@NonNull ArrayList<InvestCategory> investCategories,
                                        @NonNull ArrayList<FinancialAsset> financialAssets,
                                        double valueSupport) {

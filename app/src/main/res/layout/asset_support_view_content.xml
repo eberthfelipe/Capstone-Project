@@ -8,11 +8,30 @@
             name="hasFinancialSupport"
             type="Boolean"
             />
+        <variable
+            name="showProgress"
+            type="Boolean"
+            />
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+
+        <ProgressBar
+            android:id="@+id/pb_loading_financial_support"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{showProgress ? View.VISIBLE : View.INVISIBLE, default=invisible}"
+            />
 
         <TextView
             android:id="@+id/tv_no_financial_support"
@@ -24,7 +43,7 @@
             android:layout_marginBottom="@dimen/margin_default"
             android:text="@string/financial_support_when_have_none"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:visibility="@{hasFinancialSupport ? View.INVISIBLE : View.VISIBLE, default=invisible}"
+            android:visibility="@{hasFinancialSupport &amp;&amp; !showProgress ? View.INVISIBLE : View.VISIBLE, default=invisible}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +60,7 @@
             android:textColor="@color/colorPrimaryText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="@{hasFinancialSupport ? View.VISIBLE : View.INVISIBLE, default=invisible}"
+            android:visibility="@{hasFinancialSupport &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=visible}"
             />
 
         <TextView
@@ -55,34 +74,29 @@
             android:textSize="@dimen/dimen_main_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_financial_support_text"
-            android:visibility="@{hasFinancialSupport ? View.VISIBLE : View.INVISIBLE, default=invisible}"
+            android:visibility="@{hasFinancialSupport &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=visible}"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/tv_financial_support_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_default"
-            android:layout_marginTop="@dimen/margin_default"
-            android:layout_marginEnd="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_top_financial_support_value"
+            android:hint="@string/financial_support_hint"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/dimen_asset_name"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{hasFinancialSupport &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=visible}"
             app:layout_constraintStart_toEndOf="@+id/tv_financial_support_money"
-            app:layout_constraintTop_toBottomOf="@+id/tv_financial_support_text"
-            android:inputType="numberDecimal"
-            android:hint="@string/financial_support_hint"
-            android:importantForAutofill="no"
-            tools:targetApi="o"
-            android:visibility="@{hasFinancialSupport ? View.VISIBLE : View.INVISIBLE, default=invisible}"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/tv_financial_support_text" />
 
         <Button
             android:id="@+id/bt_close_financial_support"
             style="@style/Theme.AppCompat.DayNight.Dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/margin_default"
             android:background="@color/colorTransparent"
             android:clickable="true"
@@ -93,10 +107,10 @@
             android:paddingEnd="@dimen/margin_default"
             android:text="@string/close_financial_support"
             android:textSize="@dimen/dialog_text"
+            android:visibility="@{hasFinancialSupport &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=visible}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_financial_support_value"
-            android:visibility="@{hasFinancialSupport ? View.VISIBLE : View.INVISIBLE, default=invisible}"
-            />
+            app:layout_constraintStart_toEndOf="@+id/tv_financial_support_value"
+            app:layout_constraintTop_toBottomOf="@+id/tv_financial_support_text" />
 
         <View
             android:id="@+id/divider_asset_support"
@@ -109,23 +123,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bt_close_financial_support"
-            android:visibility="@{hasFinancialSupport ? View.VISIBLE : View.INVISIBLE, default=invisible}"
+            android:visibility="@{hasFinancialSupport &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=invisible}"
             />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_financial_support"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_default"
             android:layout_marginEnd="@dimen/margin_default"
             android:layout_marginBottom="@dimen/margin_default"
+            android:visibility="@{hasFinancialSupport &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=visible}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider_asset_support"
-            android:visibility="@{hasFinancialSupport ? View.VISIBLE : View.INVISIBLE, default=invisible}"
-            />
+            tools:listitem="@layout/asset_support_view_holder" />
 
 
     </android.support.constraint.ConstraintLayout>

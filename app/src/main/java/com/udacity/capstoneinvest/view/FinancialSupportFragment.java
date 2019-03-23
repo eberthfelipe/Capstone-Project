@@ -27,7 +27,7 @@ public class FinancialSupportFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mAssetSupportViewContentBinding = DataBindingUtil.inflate(inflater, R.layout.asset_support_view_content, container, false);
-
+        mAssetSupportViewContentBinding.setShowProgress(true);
         updateUI();
 
         return mAssetSupportViewContentBinding.getRoot();
@@ -44,14 +44,23 @@ public class FinancialSupportFragment extends Fragment
         }
     }
 
+    @Override
+    public void showProgress(boolean show) {
+        if(mAssetSupportViewContentBinding != null){
+            mAssetSupportViewContentBinding.setShowProgress(show);
+        }
+    }
+
     private void updateUI(){
         if(mFinancialSupport == null){
             mAssetSupportViewContentBinding.setHasFinancialSupport(false);
         } else {
             mAssetSupportViewContentBinding.rvFinancialSupport
                     .setAdapter(new FinancialSupportRecyclerView(mFinancialSupport.getAssetSupports(), this));
+            mAssetSupportViewContentBinding.tvFinancialSupportValue.setText(String.valueOf(mFinancialSupport.getValueSupport()));
             mAssetSupportViewContentBinding.setHasFinancialSupport(true);
         }
+        mAssetSupportViewContentBinding.setShowProgress(false);
     }
     //endregion
 }
