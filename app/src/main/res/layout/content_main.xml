@@ -58,34 +58,37 @@
 
         <TextView
             android:id="@+id/tv_total_invested"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
             android:text="@string/total_invested"
             android:textSize="@dimen/dimen_main_view"
             android:visibility="@{showTotal ? View.VISIBLE : View.INVISIBLE, default=visible}"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_view_block" />
 
         <TextView
             android:id="@+id/tv_total_invested_value"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:text="@{@string/real(String.valueOf(total))}"
             android:textSize="@dimen/dimen_main_view"
             android:visibility="@{showTotal ? View.VISIBLE : View.INVISIBLE, default=visible}"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_total_invested" />
+            app:layout_constraintStart_toEndOf="@+id/tv_total_invested"
+            app:layout_constraintTop_toBottomOf="@+id/iv_view_block" />
 
         <include
             android:id="@+id/category_view_content"
             layout="@layout/category_view_content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

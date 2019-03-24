@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.ActivityMainBinding;
 import com.udacity.capstoneinvest.object.FinancialAsset;
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity
 
     private void init() {
         mActivityMainBinding.navView.setNavigationItemSelectedListener(this);
+        mActivityMainBinding.appBarMain.adView.loadAd(getAdRequest());
         //TODO save current fragment
         mActivityMainBinding.navView.setCheckedItem(R.id.nav_account_balance);
         setupFragments();
@@ -257,4 +259,9 @@ public class MainActivity extends AppCompatActivity
     }
     //endregion
 
+    private AdRequest getAdRequest(){
+        return new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+    }
 }
