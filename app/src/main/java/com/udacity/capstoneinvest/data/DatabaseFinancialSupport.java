@@ -24,14 +24,14 @@ public class DatabaseFinancialSupport extends Database {
                 .child(FinancialSupport.class.getSimpleName())
                 .orderByValue()
                 .getRef());
-        getDatabaseReference().addValueEventListener(new ValueEventListener() {
+        getDatabaseReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     Log.d(TAG, "child value: "+ String.valueOf(dataSnapshot.getValue()));
                     mFinancialSupport = new FinancialSupport(dataSnapshot);
                 }
-                if(mFinancialSupport.isState()){
+                if(mFinancialSupport != null && mFinancialSupport.isState()){
                     mFinancialSupportPresenter.setFinancialSupportUI(mFinancialSupport);
                 } else {
                     mFinancialSupportPresenter.setFinancialSupportUI(null);
@@ -50,6 +50,7 @@ public class DatabaseFinancialSupport extends Database {
         Log.d(TAG, "saveFinancialSupport: " + financialSupport.toString());
         child.setValue(financialSupport);
         mFinancialSupport = financialSupport;
+        mFinancialSupportPresenter.setFinancialSupportUI(mFinancialSupport);
     }
 
     public void updateTotalValue(int item, int action, DatabasePortfolio databasePortfolio) {
@@ -84,5 +85,11 @@ public class DatabaseFinancialSupport extends Database {
                 break;
         }
         getDatabaseReference().setValue(mFinancialSupport);
+    }
+
+    public void closeFinancialSupport() {
+        mFinancialSupport.setState(false);
+        getDatabaseReference().setValue(mFinancialSupport);
+        mFinancialSupportPresenter.setFinancialSupportUI(null);
     }
 }

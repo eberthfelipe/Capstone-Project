@@ -43,7 +43,7 @@
             android:layout_marginBottom="@dimen/margin_default"
             android:text="@string/financial_support_when_have_none"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:visibility="@{hasFinancialSupport &amp;&amp; !showProgress ? View.INVISIBLE : View.VISIBLE, default=invisible}"
+            android:visibility="@{!hasFinancialSupport &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=invisible}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

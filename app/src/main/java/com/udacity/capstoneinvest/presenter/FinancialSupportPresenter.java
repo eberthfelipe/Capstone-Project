@@ -12,5 +12,6 @@ public interface FinancialSupportPresenter {
     void showProgress(boolean show);
     void createFinancialSupport(ArrayList<InvestCategory> investCategories, ArrayList<FinancialAsset> financialAssets, double valueSupport);
     void saveFinancialSupport(FinancialSupport financialSupport);
+    void closeFinancialSupport();
 
 }

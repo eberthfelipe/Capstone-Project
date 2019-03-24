@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,16 @@ public class FinancialSupportFragment extends Fragment
         mAssetSupportViewContentBinding = DataBindingUtil.inflate(inflater, R.layout.asset_support_view_content, container, false);
         mAssetSupportViewContentBinding.setShowProgress(true);
         updateUI();
-
+        mAssetSupportViewContentBinding.btCloseFinancialSupport.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FinancialSupportPresenterImpl financialSupportPresenter = getMainActivity().getFinancialSupportPresenter();
+                        Log.d(TAG, "onClick close financial support");
+                        financialSupportPresenter.closeFinancialSupport();
+                    }
+                }
+        );
         return mAssetSupportViewContentBinding.getRoot();
     }
 
@@ -40,9 +50,11 @@ public class FinancialSupportFragment extends Fragment
     public void setFinancialSupportUI(FinancialSupport financialSupport) {
         if(financialSupport != null){
             mFinancialSupport = new FinancialSupport(financialSupport);
-            if(mAssetSupportViewContentBinding != null){
-                updateUI();
-            }
+        } else {
+            mFinancialSupport = null;
+        }
+        if(mAssetSupportViewContentBinding != null){
+            updateUI();
         }
     }
 
@@ -58,6 +70,7 @@ public class FinancialSupportFragment extends Fragment
         FinancialSupportPresenterImpl financialSupportPresenter = getMainActivity().getFinancialSupportPresenter();
         PortfolioPresenterImpl portfolioPresenter = getMainActivity().getPortfolioPresenter();
         financialSupportPresenter.updateTotalValue(item, action, portfolioPresenter.getDatabasePortfolio());
+        mAssetSupportViewContentBinding.rvFinancialSupport.getAdapter().notifyItemChanged(item);
     }
 
     private void updateUI(){

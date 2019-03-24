@@ -46,6 +46,12 @@ public class FinancialSupportPresenterImpl implements FinancialSupportPresenter 
         mDatabaseFinancialSupport.saveFinancialSupport(financialSupport);
     }
 
+    @Override
+    public void closeFinancialSupport() {
+        showProgress(true);
+        mDatabaseFinancialSupport.closeFinancialSupport();
+    }
+
     public void updateTotalValue(int item, int action, DatabasePortfolio databasePortfolio){
         mDatabaseFinancialSupport.updateTotalValue(item, action, databasePortfolio);
     }
