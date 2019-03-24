@@ -1,8 +1,10 @@
 package com.udacity.capstoneinvest.view;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +22,12 @@ class FinancialSupportRecyclerView extends RecyclerView.Adapter<FinancialSupport
 
     private ArrayList<AssetSupport> mAssetSupportArrayList;
     private FinancialSupportUI mFinancialSupportUI;
+    private Context mContext;
 
-    public FinancialSupportRecyclerView(ArrayList<AssetSupport> mAssetSupportArrayList, FinancialSupportUI mFinancialSupportUI) {
+    public FinancialSupportRecyclerView(ArrayList<AssetSupport> mAssetSupportArrayList, FinancialSupportUI mFinancialSupportUI, Context context) {
         this.mAssetSupportArrayList = mAssetSupportArrayList;
         this.mFinancialSupportUI = mFinancialSupportUI;
+        this.mContext = context;
     }
 
     @NonNull
@@ -31,7 +35,7 @@ class FinancialSupportRecyclerView extends RecyclerView.Adapter<FinancialSupport
     public FinancialSupportAdapter onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         ViewDataBinding viewDataBinding = DataBindingUtil.inflate(layoutInflater, R.layout.asset_support_view_holder, viewGroup, false);
-        return new FinancialSupportAdapter(viewDataBinding, mFinancialSupportUI);
+        return new FinancialSupportAdapter(viewDataBinding, mFinancialSupportUI, mContext);
     }
 
     @Override
@@ -51,21 +55,25 @@ class FinancialSupportRecyclerView extends RecyclerView.Adapter<FinancialSupport
         FinancialSupportUI financialSupportUI;
         TextView tvFinancialAssetValue;
         Button btCancel, btBid, btPurchase;
+        MaterialCardView materialCardView;
+        Context context;
 
-        public FinancialSupportAdapter(@NonNull ViewDataBinding viewDataBinding, @NonNull FinancialSupportUI financialSupportUI) {
+        public FinancialSupportAdapter(@NonNull ViewDataBinding viewDataBinding, @NonNull FinancialSupportUI financialSupportUI, Context context) {
             super(viewDataBinding.getRoot());
             this.viewDataBinding = viewDataBinding;
             this.financialSupportUI = financialSupportUI;
+            this.context = context;
             tvFinancialAssetValue = itemView.findViewById(R.id.tv_asset_support_value);
             btCancel = itemView.findViewById(R.id.bt_cancel_asset_support);
             btBid = itemView.findViewById(R.id.bt_bid_asset_support);
             btPurchase = itemView.findViewById(R.id.bt_buy_asset_support);
+            materialCardView = itemView.findViewById(R.id.cv_asset_support_view_holder);
         }
 
         private void bind(AssetSupport assetSupport){
             viewDataBinding.setVariable(BR.assetSupport, assetSupport);
-            /**
-             * action : Look at AssetSupport.java
+            /*
+              action : Look at AssetSupport.java
              */
             btPurchase.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,7 +93,22 @@ class FinancialSupportRecyclerView extends RecyclerView.Adapter<FinancialSupport
                     financialSupportUI.updateTotalValue((Integer) itemView.getTag(),3);
                 }
             });
+            setBackgroundColor(assetSupport.getState());
             viewDataBinding.executePendingBindings();
+        }
+
+        private void setBackgroundColor(int state){
+            switch (state){
+                case 1:
+                    materialCardView.setBackgroundColor(context.getColor(R.color.colorPurchase));
+                    break;
+                case 2:
+                    materialCardView.setBackgroundColor(context.getColor(R.color.colorBid));
+                    break;
+                case 3:
+                    materialCardView.setBackgroundColor(context.getColor(R.color.colorCancel));
+                    break;
+            }
         }
     }
 }

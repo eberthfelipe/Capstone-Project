@@ -65,7 +65,7 @@ public class FinancialSupportFragment extends Fragment
             mAssetSupportViewContentBinding.setHasFinancialSupport(false);
         } else {
             mAssetSupportViewContentBinding.rvFinancialSupport
-                    .setAdapter(new FinancialSupportRecyclerView(mFinancialSupport.getAssetSupports(), this));
+                    .setAdapter(new FinancialSupportRecyclerView(mFinancialSupport.getAssetSupports(), this, getContext()));
             mAssetSupportViewContentBinding.tvFinancialSupportValue.setText(String.valueOf(mFinancialSupport.getValueSupport()));
             mAssetSupportViewContentBinding.setHasFinancialSupport(true);
         }
