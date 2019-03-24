@@ -1,5 +1,7 @@
 package com.udacity.capstoneinvest.presenter;
 
+import android.content.Context;
+
 import com.udacity.capstoneinvest.data.DatabasePortfolio;
 import com.udacity.capstoneinvest.view.ManagerUI;
 
@@ -12,9 +14,9 @@ public class PortfolioPresenterImpl implements PortfolioPresenter {
         return mDatabasePortfolio;
     }
 
-    public PortfolioPresenterImpl(ManagerUI managerUI) {
+    public PortfolioPresenterImpl(ManagerUI managerUI, Context context) {
         this.mManagerUI = managerUI;
-        mDatabasePortfolio = new DatabasePortfolio(this);
+        mDatabasePortfolio = new DatabasePortfolio(this, context);
     }
 
     @Override

@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setupPresenter(){
+        //TODO: cleanup
 //        if(mCurrentFragment instanceof InvestCategoryFragment){
 //            mPortfolioPresenterImpl = new PortfolioPresenterImpl(this);
 //            mCategoryPresenterImpl = new CategoryPresenterImpl(this);
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity
 //        } else if(mCurrentFragment instanceof FinancialSupportFragment){
 //            mFinancialSupportPresenterImpl = new FinancialSupportPresenterImpl(this);
 //        }
-        mPortfolioPresenterImpl = new PortfolioPresenterImpl(this);
+        mPortfolioPresenterImpl = new PortfolioPresenterImpl(this, this);
         mCategoryPresenterImpl = new CategoryPresenterImpl(this);
         mFinancialAssetPresenterImpl = new FinancialAssetPresenterImpl(this);
         mFinancialSupportPresenterImpl = new FinancialSupportPresenterImpl(this);
