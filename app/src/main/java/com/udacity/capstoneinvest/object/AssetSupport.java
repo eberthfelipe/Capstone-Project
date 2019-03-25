@@ -1,5 +1,7 @@
 package com.udacity.capstoneinvest.object;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -7,11 +9,11 @@ import com.google.firebase.database.DataSnapshot;
 /**
  *  class: Represents the abstraction of financial assets applied in cycles of investments
  */
-public class AssetSupport extends FinancialAsset{
+public class AssetSupport extends FinancialAsset implements Parcelable {
 
-    public static final String DATABASE_AMOUNT_FIELD = "amount";
-    public static final String DATABASE_WEIGHT_FIELD = "weight";
-    public static final String DATABASE_STATE_FIELD = "state";
+    private static final String DATABASE_AMOUNT_FIELD = "amount";
+    private static final String DATABASE_WEIGHT_FIELD = "weight";
+    private static final String DATABASE_STATE_FIELD = "state";
     private double amount;
     private double weight;
     private int state;
@@ -70,5 +72,36 @@ public class AssetSupport extends FinancialAsset{
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    protected AssetSupport(Parcel in) {
+        super(in);
+        amount = in.readDouble();
+        weight = in.readDouble();
+        state = in.readInt();
+    }
+
+    public static final Creator<AssetSupport> CREATOR = new Creator<AssetSupport>() {
+        @Override
+        public AssetSupport createFromParcel(Parcel in) {
+            return new AssetSupport(in);
+        }
+
+        @Override
+        public AssetSupport[] newArray(int size) {
+            return new AssetSupport[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(amount);
+        dest.writeDouble(weight);
+        dest.writeInt(state);
     }
 }

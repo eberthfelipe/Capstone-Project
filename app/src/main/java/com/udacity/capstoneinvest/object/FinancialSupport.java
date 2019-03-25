@@ -1,5 +1,7 @@
 package com.udacity.capstoneinvest.object;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -9,12 +11,12 @@ import java.util.ArrayList;
 /**
  *  class: Represents the abstraction of financial support (investments cycle)
  */
-public class FinancialSupport {
+public class FinancialSupport implements Parcelable {
 
-    public static final String DATABASE_ID_FIELD = "id";
-    public static final String DATABASE_ASSET_SUPPORT_FIELD = "assetSupports";
-    public static final String DATABASE_VALUE_SUPPORT_FIELD = "valueSupport";
-    public static final String DATABASE_STATE_FIELD = "state";
+    private static final String DATABASE_ID_FIELD = "id";
+    private static final String DATABASE_ASSET_SUPPORT_FIELD = "assetSupports";
+    private static final String DATABASE_VALUE_SUPPORT_FIELD = "valueSupport";
+    private static final String DATABASE_STATE_FIELD = "state";
     private String id;
     private ArrayList<AssetSupport> assetSupports;
     private double valueSupport;
@@ -87,5 +89,37 @@ public class FinancialSupport {
 
     public void setValueSupport(double valueSupport) {
         this.valueSupport = valueSupport;
+    }
+
+    protected FinancialSupport(Parcel in) {
+        id = in.readString();
+        assetSupports = in.createTypedArrayList(AssetSupport.CREATOR);
+        valueSupport = in.readDouble();
+        state = in.readByte() != 0;
+    }
+
+    public static final Creator<FinancialSupport> CREATOR = new Creator<FinancialSupport>() {
+        @Override
+        public FinancialSupport createFromParcel(Parcel in) {
+            return new FinancialSupport(in);
+        }
+
+        @Override
+        public FinancialSupport[] newArray(int size) {
+            return new FinancialSupport[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeTypedList(assetSupports);
+        dest.writeDouble(valueSupport);
+        dest.writeByte((byte) (state ? 1 : 0));
     }
 }

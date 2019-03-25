@@ -1,5 +1,7 @@
 package com.udacity.capstoneinvest.object;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -7,11 +9,11 @@ import com.google.firebase.database.DataSnapshot;
 /**
  *  class: Represents the abstraction of financial assets
  */
-public class FinancialAsset {
+public class FinancialAsset implements Parcelable {
 
-    public static final String DATABASE_NAME_FIELD = "name";
-    public static final String DATABASE_VALUE_FIELD = "value";
-    public static final String DATABASE_INVEST_CATEGORY_FIELD = "investCategory";
+    private static final String DATABASE_NAME_FIELD = "name";
+    private static final String DATABASE_VALUE_FIELD = "value";
+    private static final String DATABASE_INVEST_CATEGORY_FIELD = "investCategory";
     private String name;
     private double value;
     // Reference must be InvestCategory class
@@ -61,5 +63,35 @@ public class FinancialAsset {
                 ", value=" + value +
                 ", investCategory='" + investCategory + '\'' +
                 '}';
+    }
+
+    protected FinancialAsset(Parcel in) {
+        name = in.readString();
+        value = in.readDouble();
+        investCategory = in.readString();
+    }
+
+    public static final Creator<FinancialAsset> CREATOR = new Creator<FinancialAsset>() {
+        @Override
+        public FinancialAsset createFromParcel(Parcel in) {
+            return new FinancialAsset(in);
+        }
+
+        @Override
+        public FinancialAsset[] newArray(int size) {
+            return new FinancialAsset[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeDouble(value);
+        dest.writeString(investCategory);
     }
 }
