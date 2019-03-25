@@ -21,6 +21,8 @@ public class InvestCategoryFragment extends Fragment
         implements InvestmentPortfolioUI, InvestCategoryUI {
 
     private static final String TAG = InvestCategoryFragment.class.getName();
+    private static final String ARG_INVEST_CATEGORIES = "invest_categories";
+    private static final String ARG_PORTFOLIO_VALUE = "portfolio_value";
     private ContentMainBinding mContentMainBinding;
     private ArrayList<InvestCategory> mInvestCategories;
     private double mTotal = 0;
@@ -32,7 +34,15 @@ public class InvestCategoryFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        if(mInvestCategories != null){
+            outState.putParcelableArrayList(ARG_INVEST_CATEGORIES, mInvestCategories);
+            outState.putDouble(ARG_PORTFOLIO_VALUE, mTotal);
+            super.onSaveInstanceState(outState);
+        }
     }
 
     @Nullable
@@ -44,6 +54,10 @@ public class InvestCategoryFragment extends Fragment
         mContentMainBinding.setShowTotal(true);
         mContentMainBinding.ivViewValues.setOnClickListener(viewTotalInvestedClickListener());
 
+        if(savedInstanceState != null && !savedInstanceState.isEmpty()){
+            mInvestCategories = savedInstanceState.getParcelableArrayList(ARG_INVEST_CATEGORIES);
+            mTotal = savedInstanceState.getDouble(ARG_PORTFOLIO_VALUE);
+        }
         updateUI();
         mContentMainBinding.setTotal(mTotal);
 

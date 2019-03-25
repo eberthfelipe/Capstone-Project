@@ -19,10 +19,19 @@ public class FinancialAssetFragment extends Fragment
         implements FinancialAssetUI {
 
     private static final String TAG = FinancialAssetFragment.class.getName();
+    private static final String ARG_FINANCIAL_ASSETS = "financial_assets";
     private FinancialAssetViewContentBinding mFinancialAssetViewContentBinding;
     private ArrayList<FinancialAsset> mFinancialAssets;
 
     public FinancialAssetFragment() {
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        if(mFinancialAssets != null){
+            outState.putParcelableArrayList(ARG_FINANCIAL_ASSETS, mFinancialAssets);
+            super.onSaveInstanceState(outState);
+        }
     }
 
     @Nullable
@@ -30,6 +39,8 @@ public class FinancialAssetFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mFinancialAssetViewContentBinding = DataBindingUtil.inflate(inflater, R.layout.financial_asset_view_content, container, false);
 
+        if(savedInstanceState != null && !savedInstanceState.isEmpty())
+            mFinancialAssets = savedInstanceState.getParcelableArrayList(ARG_FINANCIAL_ASSETS);
         updateUI();
 
         return mFinancialAssetViewContentBinding.getRoot();

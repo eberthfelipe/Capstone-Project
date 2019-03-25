@@ -20,17 +20,30 @@ public class FinancialSupportFragment extends Fragment
         implements FinancialSupportUI {
 
     private static final String TAG = FinancialSupportFragment.class.getName();
+    private static final String ARG_FINANCIAL_SUPPORT = "financial_support";
     private AssetSupportViewContentBinding mAssetSupportViewContentBinding;
     private FinancialSupport mFinancialSupport;
 
     public FinancialSupportFragment() {
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        if(mFinancialSupport != null){
+            outState.putParcelable(ARG_FINANCIAL_SUPPORT, mFinancialSupport);
+            super.onSaveInstanceState(outState);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mAssetSupportViewContentBinding = DataBindingUtil.inflate(inflater, R.layout.asset_support_view_content, container, false);
-        mAssetSupportViewContentBinding.setShowProgress(true);
+        if(savedInstanceState != null && !savedInstanceState.isEmpty()){
+            mFinancialSupport = savedInstanceState.getParcelable(ARG_FINANCIAL_SUPPORT);
+        } else {
+            mAssetSupportViewContentBinding.setShowProgress(true);
+        }
         updateUI();
         mAssetSupportViewContentBinding.btCloseFinancialSupport.setOnClickListener(
                 new View.OnClickListener() {

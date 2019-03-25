@@ -28,6 +28,9 @@ public class InvestmentPortfolio implements Parcelable {
                 '}';
     }
 
+    public InvestmentPortfolio() {
+    }
+
     protected InvestmentPortfolio(Parcel in) {
         valueTotal = in.readDouble();
     }

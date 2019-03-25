@@ -2,6 +2,7 @@ package com.udacity.capstoneinvest.object;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
 
@@ -10,7 +11,7 @@ import com.google.firebase.database.DataSnapshot;
  */
 public class InvestCategory implements Parcelable {
 
-    private static final String DATABASE_ID_FIELD = "id";
+    public static final String DATABASE_ID_FIELD = "id";
     private static final String DATABASE_TYPE_FIELD = "type";
     private static final String DATABASE_WEIGHT_FIELD = "weight";
     private String id;
@@ -30,6 +31,7 @@ public class InvestCategory implements Parcelable {
         this.weight = dataSnapshot.child(DATABASE_WEIGHT_FIELD).getValue(Integer.class);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "InvestCategory{" +
