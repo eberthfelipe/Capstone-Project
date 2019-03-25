@@ -15,6 +15,7 @@
     <dimen name="dimen_ic_view_block_min_height">45dp</dimen>
     <dimen name="dimen_ic_view_block_min_width">45dp</dimen>
     <dimen name="dimen_main_view">24sp</dimen>
+    <dimen name="dimen_main_view_money">22sp</dimen>
     <dimen name="dimen_asset_name">20sp</dimen>
     <dimen name="dimen_asset_category">16sp</dimen>
     <dimen name="margin_top_financial_support_value">12dp</dimen>

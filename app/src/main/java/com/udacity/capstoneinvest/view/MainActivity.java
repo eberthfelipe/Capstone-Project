@@ -124,7 +124,6 @@ public class MainActivity extends AppCompatActivity
                 DialogFragment dialogFragment = null;
                 if(mCurrentFragment instanceof InvestCategoryFragment){
                     dialogFragment = new CategoryDialogFragment();
-                    dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
                 } else if (mCurrentFragment instanceof FinancialAssetFragment){
                     dialogFragment = new FinancialAssetDialogFragment();
                 } else if(mCurrentFragment instanceof FinancialSupportFragment){
