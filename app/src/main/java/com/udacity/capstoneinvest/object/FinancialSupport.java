@@ -22,7 +22,6 @@ public class FinancialSupport {
     private boolean state;
 
     public FinancialSupport() {
-        //TODO 1: get ID from database and create assetSupports array based on last cycle
     }
 
     public FinancialSupport(DataSnapshot dataSnapshot) {

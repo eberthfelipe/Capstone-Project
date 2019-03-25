@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ManagerUI {
 
     private static final String TAG = MainActivity.class.getName();
+    public static final String PORTFOLIO_CURRENT_FRAGMENT = "portfolio_current_fragment";
     private ActivityMainBinding mActivityMainBinding;
     private PortfolioPresenterImpl mPortfolioPresenterImpl;
     private CategoryPresenterImpl mCategoryPresenterImpl;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         //enable local instance of firebase database
         //TODO save preference for persistence
 //        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        //TODO maintain instance onSaveInstanceState/onRestoreInstanceState
+        //TODO maintain instance onSaveInstanceState/onRestoreInstanceState for fragments
 
         mActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(mActivityMainBinding.appBarMain.toolbar);
@@ -63,6 +64,29 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         init();
+        if(savedInstanceState == null || savedInstanceState.isEmpty()){
+            setCurrentFragment(getInvestCategoryFragment());
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if(mCurrentFragment != null){
+            Log.d(TAG, "onSaveInstanceState: Fragment -> "+mCurrentFragment.getClass().getSimpleName());
+            outState.putString(PORTFOLIO_CURRENT_FRAGMENT, mCurrentFragment.getClass().getSimpleName());
+            super.onSaveInstanceState(outState);
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if(!savedInstanceState.isEmpty()){
+            String fragment = savedInstanceState.getString(PORTFOLIO_CURRENT_FRAGMENT);
+            if (fragment != null) {
+                mCurrentFragment = getCurrentFragment(fragment);
+            }
+        }
     }
 
     @Override
@@ -110,11 +134,9 @@ public class MainActivity extends AppCompatActivity
     private void init() {
         mActivityMainBinding.navView.setNavigationItemSelectedListener(this);
         mActivityMainBinding.appBarMain.adView.loadAd(getAdRequest());
-        //TODO save current fragment
         mActivityMainBinding.navView.setCheckedItem(R.id.nav_account_balance);
         setupFragments();
         setupPresenter();
-        setCurrentFragment(getInvestCategoryFragment());
     }
 
     public View.OnClickListener handleFabClick(){
@@ -229,7 +251,7 @@ public class MainActivity extends AppCompatActivity
     private void setCurrentFragment(@NonNull Fragment fragment){
         mCurrentFragment = fragment;
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container_main, mCurrentFragment)
+                .replace(R.id.fragment_container_main, mCurrentFragment, mCurrentFragment.getClass().getSimpleName())
                 .commit();
         setupPresenter();
     }
@@ -256,6 +278,15 @@ public class MainActivity extends AppCompatActivity
         getInvestCategoryFragment();
         getFinancialAssetFragment();
         getFinancialSupportFragment();
+    }
+
+    private Fragment getCurrentFragment(String fragmentTag) {
+        if(fragmentTag.equals(FinancialAssetFragment.class.getSimpleName()))
+            return getFinancialAssetFragment();
+        else if(fragmentTag.equals(FinancialSupportFragment.class.getSimpleName()))
+            return getFinancialSupportFragment();
+        else
+            return getInvestCategoryFragment();
     }
     //endregion
 
