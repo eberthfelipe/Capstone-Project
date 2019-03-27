@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity
         //enable local instance of firebase database
         //TODO save preference for persistence
 //        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        //TODO maintain instance onSaveInstanceState/onRestoreInstanceState for fragments
 
         mActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(mActivityMainBinding.appBarMain.toolbar);
@@ -99,28 +98,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -151,7 +128,9 @@ public class MainActivity extends AppCompatActivity
                 } else if(mCurrentFragment instanceof FinancialSupportFragment){
                     dialogFragment = new FinancialSupportDialogFragment();
                 }
-                dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
+                if (dialogFragment != null) {
+                    dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
+                }
             }
         };
     }
@@ -199,15 +178,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setupPresenter(){
-        //TODO: cleanup
-//        if(mCurrentFragment instanceof InvestCategoryFragment){
-//            mPortfolioPresenterImpl = new PortfolioPresenterImpl(this);
-//            mCategoryPresenterImpl = new CategoryPresenterImpl(this);
-//        } else if(mCurrentFragment instanceof FinancialAssetFragment){
-//            mFinancialAssetPresenterImpl = new FinancialAssetPresenterImpl(this);
-//        } else if(mCurrentFragment instanceof FinancialSupportFragment){
-//            mFinancialSupportPresenterImpl = new FinancialSupportPresenterImpl(this);
-//        }
         mPortfolioPresenterImpl = new PortfolioPresenterImpl(this, this);
         mCategoryPresenterImpl = new CategoryPresenterImpl(this);
         mFinancialAssetPresenterImpl = new FinancialAssetPresenterImpl(this);
