@@ -1,11 +1,14 @@
 package com.udacity.capstoneinvest.view;
 
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +26,11 @@ public class InvestCategoryFragment extends Fragment
     private static final String TAG = InvestCategoryFragment.class.getName();
     private static final String ARG_INVEST_CATEGORIES = "invest_categories";
     private static final String ARG_PORTFOLIO_VALUE = "portfolio_value";
+    private static final String ARG_SHOW_PORTFOLIO_VALUE = "show_portfolio_value";
     private ContentMainBinding mContentMainBinding;
     private ArrayList<InvestCategory> mInvestCategories;
     private double mTotal = 0;
+    private boolean mShowPortfolio;
 
 
     public InvestCategoryFragment() {
@@ -41,6 +46,7 @@ public class InvestCategoryFragment extends Fragment
         if(mInvestCategories != null){
             outState.putParcelableArrayList(ARG_INVEST_CATEGORIES, mInvestCategories);
             outState.putDouble(ARG_PORTFOLIO_VALUE, mTotal);
+            outState.putBoolean(ARG_SHOW_PORTFOLIO_VALUE, mShowPortfolio);
             super.onSaveInstanceState(outState);
         }
     }
@@ -50,18 +56,18 @@ public class InvestCategoryFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContentMainBinding = DataBindingUtil.inflate(inflater, R.layout.content_main, container, false);
 
-        //TODO Create user preference for visibility
-        //TODO save value in variable
-        mContentMainBinding.setShowTotal(true);
         mContentMainBinding.ivViewValues.setOnClickListener(viewTotalInvestedClickListener());
 
         if(savedInstanceState != null && !savedInstanceState.isEmpty()){
             mInvestCategories = savedInstanceState.getParcelableArrayList(ARG_INVEST_CATEGORIES);
             mTotal = savedInstanceState.getDouble(ARG_PORTFOLIO_VALUE);
+            mShowPortfolio = savedInstanceState.getBoolean(ARG_SHOW_PORTFOLIO_VALUE);
         } else {
+            mShowPortfolio = getPreferenceShowPortfolio();
             mContentMainBinding.categoryViewContent.setShowProgress(true);
             mContentMainBinding.setShowProgress(true);
         }
+        mContentMainBinding.setShowTotal(mShowPortfolio);
         updateUI();
         mContentMainBinding.setTotal(mTotal);
 
@@ -74,7 +80,8 @@ public class InvestCategoryFragment extends Fragment
             public void onClick(View v) {
                 boolean show = mContentMainBinding.getShowTotal();
                 mContentMainBinding.setShowTotal(!show);
-                // TODO update preference value
+                mShowPortfolio = !show;
+                savePreferenceShowPortfolio();
             }
         };
     }
@@ -124,6 +131,23 @@ public class InvestCategoryFragment extends Fragment
             mContentMainBinding.categoryViewContent.rvCategories.getAdapter().notifyItemChanged(position);
             showWarning(getString(R.string.update_weight), getString(R.string.warning_max_weight));
         }
+    }
+    //endregion
+
+    //region Preference
+    public void savePreferenceShowPortfolio(){
+        SharedPreferences appSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+
+        prefsEditor.putBoolean(ARG_SHOW_PORTFOLIO_VALUE, mShowPortfolio);
+        prefsEditor.apply();
+    }
+
+    public boolean getPreferenceShowPortfolio(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean aux = sharedPreferences.getBoolean(ARG_SHOW_PORTFOLIO_VALUE, true);
+        Log.d(TAG, "getPreferenceShowPortfolio: " + aux);
+        return aux;
     }
     //endregion
 
