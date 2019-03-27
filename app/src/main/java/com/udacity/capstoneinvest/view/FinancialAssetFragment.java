@@ -41,6 +41,8 @@ public class FinancialAssetFragment extends Fragment
 
         if(savedInstanceState != null && !savedInstanceState.isEmpty())
             mFinancialAssets = savedInstanceState.getParcelableArrayList(ARG_FINANCIAL_ASSETS);
+        else
+            mFinancialAssetViewContentBinding.setShowProgress(true);
         updateUI();
 
         return mFinancialAssetViewContentBinding.getRoot();
@@ -54,6 +56,7 @@ public class FinancialAssetFragment extends Fragment
             mFinancialAssets = new ArrayList<>(financialAssets);
             if(mFinancialAssetViewContentBinding != null){
                 updateUI();
+                mFinancialAssetViewContentBinding.setShowProgress(false);
             }
         }
     }

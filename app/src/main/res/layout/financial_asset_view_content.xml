@@ -8,6 +8,10 @@
             name="hasFinancialAsset"
             type="Boolean"
             />
+        <variable
+            name="showProgress"
+            type="Boolean"
+            />
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -47,7 +51,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:scrollbars="vertical"
-            android:visibility="@{hasFinancialAsset ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            android:visibility="@{hasFinancialAsset &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=invisible}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,13 +70,28 @@
             android:layout_marginBottom="@dimen/margin_default"
             android:text="@string/financial_asset_when_have_none"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:visibility="@{hasFinancialAsset ? View.INVISIBLE : View.VISIBLE, default=invisible}"
+            android:visibility="@{!hasFinancialAsset &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=invisible}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_financial_asset_icon"
             app:layout_constraintVertical_bias="0.507" />
+
+        <ProgressBar
+            android:id="@+id/pb_loading_financial_asset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{showProgress ? View.VISIBLE : View.INVISIBLE, default=invisible}"
+            />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -9,6 +9,10 @@
             name="hasCategory"
             type="Boolean"
             />
+        <variable
+            name="showProgress"
+            type="Boolean"
+            />
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -60,7 +64,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:scrollbars="vertical"
-            android:visibility="@{hasCategory ? View.VISIBLE : View.INVISIBLE, default=visible}"
+            android:visibility="@{hasCategory &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=visible}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,9 +87,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_investments_category_icon"
-            android:visibility="@{hasCategory ? View.INVISIBLE : View.VISIBLE, default=invisible}"
+            android:visibility="@{!hasCategory &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=invisible}"
+            />
+
+        <ProgressBar
+            android:id="@+id/pb_loading_categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{showProgress ? View.VISIBLE : View.INVISIBLE, default=invisible}"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>
-
-<!--TODO: Create progress bar to show view only when ready-->

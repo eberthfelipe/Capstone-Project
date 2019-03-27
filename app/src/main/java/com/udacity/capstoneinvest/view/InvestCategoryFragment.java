@@ -51,12 +51,16 @@ public class InvestCategoryFragment extends Fragment
         mContentMainBinding = DataBindingUtil.inflate(inflater, R.layout.content_main, container, false);
 
         //TODO Create user preference for visibility
+        //TODO save value in variable
         mContentMainBinding.setShowTotal(true);
         mContentMainBinding.ivViewValues.setOnClickListener(viewTotalInvestedClickListener());
 
         if(savedInstanceState != null && !savedInstanceState.isEmpty()){
             mInvestCategories = savedInstanceState.getParcelableArrayList(ARG_INVEST_CATEGORIES);
             mTotal = savedInstanceState.getDouble(ARG_PORTFOLIO_VALUE);
+        } else {
+            mContentMainBinding.categoryViewContent.setShowProgress(true);
+            mContentMainBinding.setShowProgress(true);
         }
         updateUI();
         mContentMainBinding.setTotal(mTotal);
@@ -96,6 +100,8 @@ public class InvestCategoryFragment extends Fragment
             mInvestCategories = new ArrayList<>(databaseCategories);
             if(mContentMainBinding != null){
                 updateUI();
+                mContentMainBinding.categoryViewContent.setShowProgress(false);
+                mContentMainBinding.setShowProgress(false);
             }
         }
     }
@@ -108,6 +114,7 @@ public class InvestCategoryFragment extends Fragment
                     rvCategories.setAdapter(new InvestCategoryRecyclerView(mInvestCategories, this));
             mContentMainBinding.categoryViewContent.setHasCategory(true);
         }
+
     }
 
     @Override

@@ -68,6 +68,7 @@ public class FinancialSupportFragment extends Fragment
         }
         if(mAssetSupportViewContentBinding != null){
             updateUI();
+            mAssetSupportViewContentBinding.setShowProgress(false);
         }
     }
 
@@ -95,7 +96,6 @@ public class FinancialSupportFragment extends Fragment
             mAssetSupportViewContentBinding.tvFinancialSupportValue.setText(String.valueOf(mFinancialSupport.getValueSupport()));
             mAssetSupportViewContentBinding.setHasFinancialSupport(true);
         }
-        mAssetSupportViewContentBinding.setShowProgress(false);
     }
     //endregion
 
