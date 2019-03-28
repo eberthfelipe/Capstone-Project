@@ -43,12 +43,10 @@ public class InvestCategoryFragment extends Fragment
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        if(mInvestCategories != null){
-            outState.putParcelableArrayList(ARG_INVEST_CATEGORIES, mInvestCategories);
-            outState.putDouble(ARG_PORTFOLIO_VALUE, mTotal);
-            outState.putBoolean(ARG_SHOW_PORTFOLIO_VALUE, mShowPortfolio);
-            super.onSaveInstanceState(outState);
-        }
+        outState.putParcelableArrayList(ARG_INVEST_CATEGORIES, mInvestCategories);
+        outState.putDouble(ARG_PORTFOLIO_VALUE, mTotal);
+        outState.putBoolean(ARG_SHOW_PORTFOLIO_VALUE, mShowPortfolio);
+        super.onSaveInstanceState(outState);
     }
 
     @Nullable
@@ -103,13 +101,15 @@ public class InvestCategoryFragment extends Fragment
     //region CategoryPresenterImpl to access InvestCategory object
     @Override
     public void setInvestCategoryUI(ArrayList<InvestCategory> databaseCategories) {
-        if(databaseCategories != null){
+        if(databaseCategories != null && !databaseCategories.isEmpty()){
             mInvestCategories = new ArrayList<>(databaseCategories);
-            if(mContentMainBinding != null){
-                updateUI();
-                mContentMainBinding.categoryViewContent.setShowProgress(false);
-                mContentMainBinding.setShowProgress(false);
-            }
+        } else {
+            mInvestCategories = null;
+        }
+        if(mContentMainBinding != null){
+            updateUI();
+            mContentMainBinding.categoryViewContent.setShowProgress(false);
+            mContentMainBinding.setShowProgress(false);
         }
     }
 

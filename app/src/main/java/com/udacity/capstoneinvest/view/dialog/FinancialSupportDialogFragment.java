@@ -12,7 +12,10 @@ import android.widget.Toast;
 
 import com.udacity.capstoneinvest.R;
 import com.udacity.capstoneinvest.databinding.DialogFinancialSupportCycleBinding;
+import com.udacity.capstoneinvest.object.FinancialAsset;
 import com.udacity.capstoneinvest.view.MainActivity;
+
+import java.util.ArrayList;
 
 public class FinancialSupportDialogFragment extends android.support.v4.app.DialogFragment implements DialogFragment {
 
@@ -21,10 +24,16 @@ public class FinancialSupportDialogFragment extends android.support.v4.app.Dialo
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mDialogFinancialSupportCycleBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_financial_support_cycle, container, false);
-        mDialogFinancialSupportCycleBinding.viewButtonsCreateCancelFinancialSupport.btDialogCreateCategory.setOnClickListener(getPositiveDialogClick());
-        mDialogFinancialSupportCycleBinding.viewButtonsCreateCancelFinancialSupport.btDialogCancelCategory.setOnClickListener(getNegativeDialogClick());
-        return mDialogFinancialSupportCycleBinding.getRoot();
+        if(validateFinancialAssets()){
+            mDialogFinancialSupportCycleBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_financial_support_cycle, container, false);
+            mDialogFinancialSupportCycleBinding.viewButtonsCreateCancelFinancialSupport.btDialogCreateCategory.setOnClickListener(getPositiveDialogClick());
+            mDialogFinancialSupportCycleBinding.viewButtonsCreateCancelFinancialSupport.btDialogCancelCategory.setOnClickListener(getNegativeDialogClick());
+            return mDialogFinancialSupportCycleBinding.getRoot();
+        } else {
+            showToast(getString(R.string.warning_first_create_financial_assets));
+            dismiss();
+            return null;
+        }
     }
 
     @Override
@@ -61,5 +70,10 @@ public class FinancialSupportDialogFragment extends android.support.v4.app.Dialo
     @Override
     public void showToast(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    public boolean validateFinancialAssets(){
+        ArrayList<FinancialAsset> financialAssets = ((MainActivity)getActivity()).getFinancialAssetPresenter().getFinancialAssets();
+        return financialAssets != null && !financialAssets.isEmpty();
     }
 }

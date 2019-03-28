@@ -27,11 +27,18 @@ public class FinancialAssetDialogFragment extends DialogFragment
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mDialogFinancialAssetBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_financial_asset, container, false);
-        mDialogFinancialAssetBinding.spFinancialAsset.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getInvestCategoryItems()));
-        mDialogFinancialAssetBinding.viewButtonsCreateCancel.btDialogCreateCategory.setOnClickListener(getPositiveDialogClick());
-        mDialogFinancialAssetBinding.viewButtonsCreateCancel.btDialogCancelCategory.setOnClickListener(getNegativeDialogClick());
-        return mDialogFinancialAssetBinding.getRoot();
+        String[] arrayCategories = getInvestCategoryItems();
+        if(arrayCategories.length>0){
+            mDialogFinancialAssetBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_financial_asset, container, false);
+            mDialogFinancialAssetBinding.spFinancialAsset.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, arrayCategories));
+            mDialogFinancialAssetBinding.viewButtonsCreateCancel.btDialogCreateCategory.setOnClickListener(getPositiveDialogClick());
+            mDialogFinancialAssetBinding.viewButtonsCreateCancel.btDialogCancelCategory.setOnClickListener(getNegativeDialogClick());
+            return mDialogFinancialAssetBinding.getRoot();
+        } else {
+            showToast(getString(R.string.warning_first_create_investment_catgories));
+            dismiss();
+            return null;
+        }
     }
 
     @Override
@@ -82,10 +89,13 @@ public class FinancialAssetDialogFragment extends DialogFragment
     }
 
     public String[] getInvestCategoryItems(){
+        String[] items = new String[0];
         ArrayList<InvestCategory> investCategories = ((MainActivity)getActivity()).getDatabaseCategoryPresenter().getInvestCategories();
-        String[] items = new String[investCategories.size()];
-        for (int i=0; i < items.length; i++) {
-            items[i] = investCategories.get(i).getType();
+        if(investCategories!=null && !investCategories.isEmpty()){
+            items = new String[investCategories.size()];
+            for (int i=0; i < items.length; i++) {
+                items[i] = investCategories.get(i).getType();
+            }
         }
         return items;
     }

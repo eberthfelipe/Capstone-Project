@@ -29,10 +29,8 @@ public class FinancialSupportFragment extends Fragment
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        if(mFinancialSupport != null){
-            outState.putParcelable(ARG_FINANCIAL_SUPPORT, mFinancialSupport);
-            super.onSaveInstanceState(outState);
-        }
+        outState.putParcelable(ARG_FINANCIAL_SUPPORT, mFinancialSupport);
+        super.onSaveInstanceState(outState);
     }
 
     @Nullable

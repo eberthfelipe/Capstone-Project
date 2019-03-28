@@ -28,10 +28,8 @@ public class FinancialAssetFragment extends Fragment
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        if(mFinancialAssets != null){
-            outState.putParcelableArrayList(ARG_FINANCIAL_ASSETS, mFinancialAssets);
-            super.onSaveInstanceState(outState);
-        }
+        outState.putParcelableArrayList(ARG_FINANCIAL_ASSETS, mFinancialAssets);
+        super.onSaveInstanceState(outState);
     }
 
     @Nullable
@@ -52,12 +50,14 @@ public class FinancialAssetFragment extends Fragment
 
     @Override
     public void setFinancialAssetUI(ArrayList<FinancialAsset> financialAssets) {
-        if(financialAssets != null){
+        if(financialAssets != null && !financialAssets.isEmpty()){
             mFinancialAssets = new ArrayList<>(financialAssets);
-            if(mFinancialAssetViewContentBinding != null){
-                updateUI();
-                mFinancialAssetViewContentBinding.setShowProgress(false);
-            }
+        } else {
+            mFinancialAssets = null;
+        }
+        if(mFinancialAssetViewContentBinding != null){
+            updateUI();
+            mFinancialAssetViewContentBinding.setShowProgress(false);
         }
     }
 

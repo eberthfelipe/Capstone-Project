@@ -47,10 +47,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //enable local instance of firebase database
-        //TODO save preference for persistence
-//        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
         mActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(mActivityMainBinding.appBarMain.toolbar);
 
@@ -210,6 +206,10 @@ public class MainActivity extends AppCompatActivity
 
     public FinancialSupportPresenterImpl getFinancialSupportPresenter(){
         return mFinancialSupportPresenterImpl;
+    }
+
+    public FinancialAssetPresenterImpl getFinancialAssetPresenter(){
+        return mFinancialAssetPresenterImpl;
     }
 
     public PortfolioPresenterImpl getPortfolioPresenter(){

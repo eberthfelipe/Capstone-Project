@@ -43,4 +43,6 @@
     <string name="close_financial_support">Close Support</string>
     <string name="appwidget_text">Portfolio R$: %s</string>
     <string name="add_widget">Add widget</string>
+    <string name="warning_first_create_investment_catgories">Please, you must first create Investment Categories!</string>
+    <string name="warning_first_create_financial_assets">Please, you must first create Financial Assets!</string>
 </resources>

@@ -53,6 +53,8 @@ public class DatabaseCategory extends Database{
         investCategory.setId(id);
         Log.d(TAG, "addCategory: " + investCategory.toString());
         child.setValue(investCategory);
+        if(mInvestCategories == null)
+            mInvestCategories = new ArrayList<>();
         mInvestCategories.add(investCategory);
     }
 
