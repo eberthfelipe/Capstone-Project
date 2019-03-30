@@ -47,7 +47,7 @@ public class DatabasePortfolio extends Database{
                             Log.d(TAG, "getTotal - onDataChange: CREATE DB OBJECT id=" + id);
                         }
                         mPortfolioPresenter.setTotalInvestedUI(mInvestmentPortfolio.getValueTotal());
-                        updateWidget(mContext, mInvestmentPortfolio.getValueTotal());
+                        updateWidget(mContext, mInvestmentPortfolio);
                     }
 
                     @Override
@@ -68,15 +68,15 @@ public class DatabasePortfolio extends Database{
         DatabaseReference child = getDatabaseReference();
         Log.d(TAG, "updateTotalPortfolio: " + mInvestmentPortfolio.toString());
         child.setValue(mInvestmentPortfolio);
-        updateWidget(mContext, mInvestmentPortfolio.getValueTotal());
+        updateWidget(mContext, mInvestmentPortfolio);
     }
 
-    private void updateWidget(Context context, double valueTotal){
+    private void updateWidget(Context context, InvestmentPortfolio investmentPortfolio){
         Intent intent = new Intent(context, PortfolioWidget.class);
         intent.setAction(PortfolioWidget.WIDGET_PORTFOLIO_UPDATE);
-        if(valueTotal > 0){
+        if(mInvestmentPortfolio.getValueTotal() > 0){
             WidgetPreference widgetPreference = new WidgetPreference();
-            widgetPreference.savePortfolio(context, valueTotal);
+            widgetPreference.savePortfolio(context, investmentPortfolio);
         }
         context.sendBroadcast(intent);
     }

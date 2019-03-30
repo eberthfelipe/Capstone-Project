@@ -21,7 +21,7 @@ public class PortfolioWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         WidgetPreference widgetPreference = new WidgetPreference();
-        float portfolioValue = widgetPreference.getPortfolioSaved(context);
+        double portfolioValue = widgetPreference.getPortfolioSaved(context);
         String widgetText = String.format(context.getString(R.string.appwidget_text), String.valueOf(portfolioValue));
 
         // Construct the RemoteViews object

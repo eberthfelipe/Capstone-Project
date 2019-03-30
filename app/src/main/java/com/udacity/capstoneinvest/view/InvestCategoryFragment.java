@@ -37,11 +37,6 @@ public class InvestCategoryFragment extends Fragment
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putParcelableArrayList(ARG_INVEST_CATEGORIES, mInvestCategories);
         outState.putDouble(ARG_PORTFOLIO_VALUE, mTotal);

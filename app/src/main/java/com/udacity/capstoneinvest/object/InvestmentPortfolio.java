@@ -3,13 +3,17 @@ package com.udacity.capstoneinvest.object;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 /**
  *  class: Represents the abstraction of the total value of portfolio
  */
 public class InvestmentPortfolio implements Parcelable {
 
-    public static String DATABASE_VALUE_TOTAL_FIELD = "valueTotal";
+    public static final String DATABASE_VALUE_TOTAL_FIELD = "valueTotal";
+
+    @JsonProperty(DATABASE_VALUE_TOTAL_FIELD)
     private double valueTotal;
 
     public double getValueTotal() {
