@@ -1,20 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    xmlns:tools="http://schemas.android.com/tools" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="showTotal"
+            type="Boolean"
+            />
+        <variable
+            name="total"
+            type="java.lang.Double"
+            />
+        <variable
+            name="showProgress"
+            type="Boolean"
+            />
+    </data>
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".view.MainActivity"
+        tools:showIn="@layout/app_bar_main">
+
+        <ImageView
+            android:id="@+id/iv_view_values"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:contentDescription="@string/cd_icon_view_total_invested"
+            android:minWidth="@dimen/dimen_ic_view_min_width"
+            android:minHeight="@dimen/dimen_ic_view_min_height"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_view_values"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_view_block"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:contentDescription="@string/cd_icon_do_not_view_total_invested"
+            android:minWidth="@dimen/dimen_ic_view_block_min_width"
+            android:minHeight="@dimen/dimen_ic_view_block_min_height"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_view_block"
+            android:visibility="@{showTotal ? View.INVISIBLE : View.VISIBLE, default=invisible}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ll_total_invested"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_view_block"
+            android:visibility="@{showTotal ? View.VISIBLE : View.GONE, default=visible}"
+            >
+
+            <TextView
+                android:id="@+id/tv_total_invested"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/total_invested"
+                android:textSize="@dimen/dimen_main_view"
+                />
+
+            <TextView
+                android:id="@+id/tv_total_invested_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_default"
+                android:text="@{@string/real(String.valueOf(total))}"
+                android:textSize="@dimen/dimen_main_view_money"
+                android:textColor="@color/colorPrimaryText"
+                android:visibility="@{showProgress ? View.INVISIBLE : View.VISIBLE, default=invisible}"
+                />
+
+            <ProgressBar
+                android:id="@+id/pb_loading_portfolio_value"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:visibility="@{showProgress ? View.VISIBLE : View.INVISIBLE, default=invisible}"
+                />
+        </LinearLayout>
+
+        <include
+            android:id="@+id/category_view_content"
+            layout="@layout/category_view_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_total_invested" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

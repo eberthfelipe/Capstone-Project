@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="assetSupport"
+            type="com.udacity.capstoneinvest.object.AssetSupport"
+            />
+    </data>
+
+    <android.support.design.card.MaterialCardView
+        android:id="@+id/cv_asset_support_view_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:elevation="@dimen/margin_default"
+        app:cardElevation="@dimen/margin_default"
+        app:cardBackgroundColor="@color/colorIcons"
+        >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_asset_support_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_marginTop="8dp"
+                android:text="@{assetSupport.name}"
+                android:textSize="@dimen/dimen_asset_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_asset_support_invest_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_marginTop="@dimen/margin_default_dialog"
+                android:layout_marginBottom="8dp"
+                android:text="@{assetSupport.investCategory}"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/dimen_asset_category"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_asset_support_name" />
+
+            <TextView
+                android:id="@+id/tv_asset_support_money"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/money"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/dimen_asset_name"
+                app:layout_constraintBottom_toTopOf="@+id/divider_asset_support"
+                app:layout_constraintEnd_toStartOf="@+id/tv_asset_support_value"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/tv_asset_support_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/money"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:labelFor="@id/tv_asset_support_money"
+                android:text="@{String.valueOf(assetSupport.value)}"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/dimen_asset_name"
+                app:layout_constraintBottom_toTopOf="@+id/divider_asset_support"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="o"
+                android:focusable="false"
+                android:clickable="false"
+                android:focusableInTouchMode="false"
+                android:cursorVisible="false"
+                />
+
+            <View
+                android:id="@+id/divider_asset_support"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginBottom="@dimen/margin_default"
+                android:background="@color/colorPrimaryText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_asset_support_invest_category" />
+
+            <TextView
+                android:id="@+id/tv_asset_support_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginBottom="@dimen/margin_default"
+                android:text="@string/weight"
+                android:textSize="@dimen/dimen_asset_category"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/divider_asset_support" />
+
+            <TextView
+                android:id="@+id/tv_asset_support_weight_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/margin_default"
+                android:textSize="@dimen/dimen_asset_category"
+                app:layout_constraintStart_toEndOf="@+id/tv_asset_support_weight"
+                app:layout_constraintTop_toTopOf="@+id/divider_asset_support"
+                android:text="@{String.valueOf(assetSupport.weight)}"
+                />
+
+            <TextView
+                android:id="@+id/tv_asset_support_amount_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginEnd="8dp"
+                android:textSize="@dimen/dimen_asset_category"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/divider_asset_support"
+                android:text="@{String.valueOf(assetSupport.amount)}"
+                />
+
+            <TextView
+                android:id="@+id/tv_asset_support_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginEnd="8dp"
+                android:text="@string/amount"
+                android:textSize="@dimen/dimen_asset_category"
+                app:layout_constraintEnd_toStartOf="@+id/tv_asset_support_amount_value"
+                app:layout_constraintTop_toTopOf="@+id/divider_asset_support" />
+
+            <LinearLayout
+                android:id="@+id/ll_asset_support_buttons"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_asset_support_amount">
+
+                <Button
+                    android:id="@+id/bt_cancel_asset_support"
+                    style="@style/Theme.AppCompat.DayNight.Dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_default"
+                    android:background="@color/colorTransparent"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_cancel_asset_support"
+                    android:focusable="true"
+                    android:foreground="@drawable/ripple_effect"
+                    android:paddingStart="@dimen/margin_default"
+                    android:paddingEnd="@dimen/margin_default"
+                    android:text="@string/cancel"
+                    android:textSize="@dimen/dialog_text" />
+
+                <Button
+                    android:id="@+id/bt_bid_asset_support"
+                    style="@style/Theme.AppCompat.DayNight.Dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_default"
+                    android:background="@color/colorTransparent"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_bid_asset_support"
+                    android:focusable="true"
+                    android:foreground="@drawable/ripple_effect"
+                    android:paddingStart="@dimen/margin_default"
+                    android:paddingEnd="@dimen/margin_default"
+                    android:text="@string/bid"
+                    android:textSize="@dimen/dialog_text" />
+
+                <Button
+                    android:id="@+id/bt_buy_asset_support"
+                    style="@style/Theme.AppCompat.DayNight.Dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_default"
+                    android:background="@color/colorTransparent"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_purchase_asset_support"
+                    android:focusable="true"
+                    android:foreground="@drawable/ripple_effect"
+                    android:paddingStart="@dimen/margin_default"
+                    android:paddingEnd="@dimen/margin_default"
+                    android:text="@string/purchase"
+                    android:textSize="@dimen/dialog_text" />
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.design.card.MaterialCardView>
+</layout>

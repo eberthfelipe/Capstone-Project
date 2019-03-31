@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="300dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_category"
+            android:textSize="@dimen/dialog_title"
+            android:layout_marginTop="@dimen/margin_default_dialog"
+            android:layout_marginStart="@dimen/margin_default_dialog"
+            style="@style/Theme.AppCompat.DayNight.Dialog"
+            />
+
+        <EditText
+            android:id="@+id/et_dialog_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@android:style/Theme.Dialog"
+            android:textSize="@dimen/dialog_text"
+            android:hint="@string/add_category_name"
+            android:layout_marginTop="@dimen/margin_default"
+            android:inputType="text"
+            android:importantForAutofill="no"
+            tools:targetApi="o" />
+
+        <include layout="@layout/view_buttons_create_cancel"
+            android:id="@+id/view_buttons_create_cancel"/>
+
+    </LinearLayout>
+</layout>

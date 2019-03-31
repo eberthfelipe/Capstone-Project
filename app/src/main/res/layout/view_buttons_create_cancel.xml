@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginBottom="@dimen/margin_default"
+        >
+
+        <Button
+            android:id="@+id/bt_dialog_cancel_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/ripple_effect"
+            android:background="@color/colorTransparent"
+            android:textSize="@dimen/dialog_text"
+            style="@style/Theme.AppCompat.DayNight.Dialog"
+            />
+        <Button
+            android:id="@+id/bt_dialog_create_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_create"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/ripple_effect"
+            android:background="@color/colorTransparent"
+            android:textSize="@dimen/dialog_text"
+            style="@style/Theme.AppCompat.DayNight.Dialog"
+            />
+    </LinearLayout>
+</layout>

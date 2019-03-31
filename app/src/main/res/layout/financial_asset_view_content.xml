@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="hasFinancialAsset"
+            type="Boolean"
+            />
+        <variable
+            name="showProgress"
+            type="Boolean"
+            />
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_financial_asset_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/ic_financial_asset"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:minHeight="@dimen/dimen_ic_view_min_width"
+            android:minWidth="@dimen/dimen_ic_view_min_width"
+            android:contentDescription="@string/cd_icon_investments_category"
+            />
+
+        <TextView
+            android:id="@+id/tv_financial_asset_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/margin_default"
+            android:text="@string/financial_assets"
+            android:textSize="@dimen/dimen_main_view"
+            app:layout_constraintStart_toEndOf="@+id/iv_financial_asset_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_financial_assets"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:scrollbars="vertical"
+            android:visibility="@{hasFinancialAsset &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=invisible}"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_financial_asset_icon"
+            tools:context=".view.MainActivity"
+            tools:listitem="@layout/financial_asset_view_holder" />
+
+        <TextView
+            android:id="@+id/tv_no_financial_asset"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:text="@string/financial_asset_when_have_none"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:visibility="@{!hasFinancialAsset &amp;&amp; !showProgress ? View.VISIBLE : View.INVISIBLE, default=invisible}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_financial_asset_icon"
+            app:layout_constraintVertical_bias="0.507" />
+
+        <ProgressBar
+            android:id="@+id/pb_loading_financial_asset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{showProgress ? View.VISIBLE : View.INVISIBLE, default=invisible}"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
